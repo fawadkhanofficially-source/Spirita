@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Spirita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Hero with Bento Grid Background */
+        .about-hero {
+            position: relative;
+            min-height: calc(100vh - 72px);
+            margin-top: 0;
+            overflow: hidden;
+            isolation: isolate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px;
+        }
+
+        .about-hero .hero-bento {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 6px;
+            padding: 6px;
+            z-index: 0;
+        }
+        .about-hero .hero-bento > div {
+            background-size: cover;
+            background-position: center;
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 18px;
+            transition: transform 0.5s ease;
+        }
+        .about-hero .hero-bento > div::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+            border-radius: 14px;
+        }
+        .about-hero .hero-bento > div:hover {
+            transform: scale(1.015);
+        }
+        .about-hero .hero-bento .bento-info {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+        }
+        .about-hero .hero-bento .bento-info span {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--secondary);
+            color: #fff !important;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 8px;
+        }
+        .about-hero .hero-bento .bento-info h3 {
+            color: #fff !important;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            line-height: 1.2;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .about-hero .hero-bento .bento-info p {
+            color: rgba(255,255,255,0.9) !important;
+            font-size: 0.78rem;
+            line-height: 1.4;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+        .about-hero .hero-bento .div1 { grid-column: span 2 / span 2; grid-row: span 6 / span 6; }
+        .about-hero .hero-bento .div3 { grid-column: span 2 / span 2; grid-row: span 3 / span 3; grid-column-start: 3; grid-row-start: 4; }
+        .about-hero .hero-bento .div4 { grid-column: span 2 / span 2; grid-row: span 6 / span 6; grid-column-start: 5; grid-row-start: 1; }
+        .about-hero .hero-bento .div5 { grid-column: span 2 / span 2; grid-row: span 3 / span 3; grid-column-start: 3; grid-row-start: 1; }
+
+        /* Removed dark overlay so bento images show fully */
+
+        .about-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 56rem;
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .about-hero .hero-content h1,
+        .about-hero .hero-content p,
+        .about-hero .hero-content span.about-badge {
+            color: #ffffff !important;
+            text-shadow: 0 4px 18px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        .about-hero .hero-content h1 {
+            text-shadow: 0 6px 24px rgba(0,0,0,0.75), 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+@media (max-width: 768px) {
+            .about-hero {
+                min-height: calc(100vh - 72px);
+                padding: 40px 16px;
+            }
+            .about-hero .hero-bento {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+            }
+            .about-hero .hero-bento .div1,
+            .about-hero .hero-bento .div3,
+            .about-hero .hero-bento .div4,
+            .about-hero .hero-bento .div5 {
+                grid-column: span 1 / span 1;
+                grid-row: span 1 / span 1;
+                grid-column-start: auto;
+                grid-row-start: auto;
+            }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+    </style>
+</head>
+<body>
+    <main>
+
+        <!-- Hero with Bento Background -->
+        <section class="about-hero">
+            <div class="hero-bento">
+                <div class="div1" style="background-image: url('https://images.pexels.com/photos/3163677/pexels-photo-3163677.jpeg');">
+                    <div class="bento-info">
+                        <span>Faith</span>
+                        <h3>Devotion in Stillness</h3>
+                        <p>Every prayer is a step toward inner peace and clarity.</p>
+                    </div>
+                </div>
+                <div class="div5" style="background-image: url('https://images.pexels.com/photos/20865974/pexels-photo-20865974.jpeg');">
+                    <div class="bento-info">
+                        <span>Tradition</span>
+                        <h3>Sacred Rituals</h3>
+                        <p>Honoring ancient practices passed through generations.</p>
+                    </div>
+                </div>
+                <div class="div3" style="background-image: url('https://images.pexels.com/photos/30111933/pexels-photo-30111933.jpeg');">
+                    <div class="bento-info">
+                        <span>Wisdom</span>
+                        <h3>Eternal Teachings</h3>
+                        <p>Sacred words that guide hearts across centuries.</p>
+                    </div>
+                </div>
+                <div class="div4" style="background-image: url('https://images.pexels.com/photos/9743193/pexels-photo-9743193.jpeg');">
+                    <div class="bento-info">
+                        <span>Harmony</span>
+                        <h3>Light of Unity</h3>
+                        <p>Every faith adds its own glow to the world.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-content">
+                <span class="about-badge inline-block bg-secondary px-5 py-2 rounded-full text-sm font-semibold tracking-widest uppercase mb-6">About Spirita</span>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 leading-tight">A Sacred Bridge Between Faiths</h1>
+                <p class="text-base md:text-lg max-w-2xl mx-auto leading-relaxed">Spirita is a peaceful digital sanctuary where every religion is celebrated, every tradition is honored, and every soul is welcomed.</p>
+            </div>
+        </section>
+
+        <!-- Mission & Vision -->
+        <section class="py-20 px-6 md:px-12 bg-white">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="reveal p-10 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mb-6">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold playfair mb-4">Our Mission</h2>
+                    <p class="text-gray-600 leading-relaxed">To create a global platform where the wisdom, festivals, and spiritual practices of all religions can be discovered, learned, and celebrated together. We aim to make sacred knowledge approachable, beautifully presented, and free from judgment — for every seeker, regardless of background.</p>
+                </div>
+
+                <div class="reveal p-10 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mb-6">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold playfair mb-4">Our Vision</h2>
+                    <p class="text-gray-600 leading-relaxed">A world where understanding replaces division, where every person can explore the spiritual heritage of humanity with curiosity and respect. We envision Spirita as the global home of interfaith harmony — a place where light from every tradition shines together.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Spirita Exists -->
+        <section class="py-20 px-6 md:px-12 bg-gray-50">
+            <div class="max-w-5xl mx-auto text-center mb-12 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold playfair mb-4">Why We Built Spirita</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">In a world filled with noise and division, we wanted to create something different — a sacred space.</p>
+            </div>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="reveal bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition border-t-4 border-primary">
+                    <i class="fas fa-book-open text-4xl text-primary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">To Educate</h3>
+                    <p class="text-gray-600 text-sm">Make sacred scriptures, festivals, and traditions accessible to everyone — beautifully and authentically.</p>
+                </div>
+                <div class="reveal bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition border-t-4 border-secondary">
+                    <i class="fas fa-hands-praying text-4xl text-secondary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">To Connect</h3>
+                    <p class="text-gray-600 text-sm">Bring people from every faith together — through shared values of love, gratitude, peace, and mindfulness.</p>
+                </div>
+                <div class="reveal bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition border-t-4 border-primary">
+                    <i class="fas fa-heart text-4xl text-primary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">To Inspire</h3>
+                    <p class="text-gray-600 text-sm">Inspire seekers, learners, and devotees to embrace the spiritual journey through respect and wonder.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Embrace, Don't Degrade -->
+        <section class="py-24 px-6 md:px-12 bg-white">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+                <div class="flex-1 reveal">
+                    <img src="https://images.pexels.com/photos/9486847/pexels-photo-9486847.jpeg?auto=format&fit=crop&q=80&w=900" alt="Unity" class="rounded-3xl shadow-2xl">
+                </div>
+                <div class="flex-1 reveal">
+                    <span class="text-secondary font-semibold uppercase tracking-widest text-sm mb-4 block">Our Promise</span>
+                    <h2 class="text-4xl font-bold playfair mb-6 leading-tight">Embrace Every Religion. Degrade None.</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">At Spirita, we celebrate the divinity, beauty, and wisdom found in every faith tradition. Our content is carefully created to honor the truth of each religion — never to compare, criticize, or rank one above another.</p>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3 items-start">
+                            <span class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-1 flex-shrink-0"><i class="fas fa-check text-xs"></i></span>
+                            <span class="text-gray-700">Every religion is presented with reverence and accuracy.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-1 flex-shrink-0"><i class="fas fa-check text-xs"></i></span>
+                            <span class="text-gray-700">No comparisons, no rankings, no judgments.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-1 flex-shrink-0"><i class="fas fa-check text-xs"></i></span>
+                            <span class="text-gray-700">A safe space for every believer, learner, and seeker.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-1 flex-shrink-0"><i class="fas fa-check text-xs"></i></span>
+                            <span class="text-gray-700">Authentic visuals, sacred texts, and verified knowledge.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Makes Us Different -->
+        <section class="py-24 px-6 md:px-12 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-secondary font-semibold uppercase tracking-widest text-sm mb-3 block">Our Difference</span>
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-4">What Makes Spirita Unique</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">More than a website — a sanctuary built with intention, design, and devotion.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="reveal bg-white p-8 rounded-2xl border border-gray-100 hover:-translate-y-2 transition shadow-sm hover:shadow-xl">
+                        <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-xl mb-5">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">All Faiths in One Home</h4>
+                        <p class="text-gray-600 text-sm">Hinduism, Christianity, Islam, Buddhism — all presented side-by-side with equal love and detail.</p>
+                    </div>
+
+                    <div class="reveal bg-white p-8 rounded-2xl border border-gray-100 hover:-translate-y-2 transition shadow-sm hover:shadow-xl">
+                        <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-xl mb-5">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Premium, Peaceful Design</h4>
+                        <p class="text-gray-600 text-sm">A minimal, elegant interface that feels meditative — built to calm, not overwhelm.</p>
+                    </div>
+
+                    <div class="reveal bg-white p-8 rounded-2xl border border-gray-100 hover:-translate-y-2 transition shadow-sm hover:shadow-xl">
+                        <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-xl mb-5">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Authentic Cultural Galleries</h4>
+                        <p class="text-gray-600 text-sm">Every festival is illustrated with real, respectful imagery — not stock fluff.</p>
+                    </div>
+
+                    <div class="reveal bg-white p-8 rounded-2xl border border-gray-100 hover:-translate-y-2 transition shadow-sm hover:shadow-xl">
+                        <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-xl mb-5">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Sacred Books, Curated</h4>
+                        <p class="text-gray-600 text-sm">Discover scriptures from every tradition — Bhagavad Gita, Bible, Quran, Dhammapada — in one library.</p>
+                    </div>
+
+                    <div class="reveal bg-white p-8 rounded-2xl border border-gray-100 hover:-translate-y-2 transition shadow-sm hover:shadow-xl">
+                        <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-xl mb-5">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Spiritual Marketplace</h4>
+                        <p class="text-gray-600 text-sm">Hand-picked sacred items: prayer beads, diyas, incense, and meditation essentials.</p>
+                    </div>
+
+                    <div class="reveal bg-white p-8 rounded-2xl border border-gray-100 hover:-translate-y-2 transition shadow-sm hover:shadow-xl">
+                        <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-xl mb-5">
+                            <i class="fas fa-dove"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Built on Respect</h4>
+                        <p class="text-gray-600 text-sm">Our editorial principle: every word, image, and idea must honor the faith it represents.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="py-20 px-6 md:px-12 bg-white">
+            <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-6 bg-gray-50 rounded-2xl reveal">
+                    <h4 class="text-4xl font-bold text-secondary playfair counter" data-target="50">0</h4>
+                    <p class="text-gray-500 mt-2">Religions Covered</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-2xl reveal">
+                    <h4 class="text-4xl font-bold text-primary playfair counter" data-target="200">0</h4>
+                    <p class="text-gray-500 mt-2">Sacred Festivals</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-2xl reveal">
+                    <h4 class="text-4xl font-bold text-secondary playfair counter" data-target="500">0</h4>
+                    <p class="text-gray-500 mt-2">Sacred Books</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-2xl reveal">
+                    <h4 class="text-4xl font-bold text-primary playfair counter" data-target="10000">0</h4>
+                    <p class="text-gray-500 mt-2">Souls Inspired</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-24 px-6 md:px-12 bg-gray-50">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <h2 class="text-4xl md:text-5xl font-bold playfair mb-6">Walk the Sacred Path with Us</h2>
+                <p class="text-gray-600 mb-8 max-w-xl mx-auto">Step into a journey of learning, devotion, and harmony — explore the world's spiritual treasures in one peaceful place.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="religion.html" class="btn-gradient px-10 py-4 rounded-full font-bold">Explore Religions</a>
+                    <a href="books.html" class="border-2 border-gray-300 px-10 py-4 rounded-full font-bold hover:bg-white transition">Sacred Library</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Scroll reveal
+            function checkReveal() {
+                $('.reveal').each(function() {
+                    const top = $(this).offset().top;
+                    const bottom = $(window).scrollTop() + $(window).height();
+                    if (bottom > top + 60) $(this).addClass('show');
+                });
+            }
+            checkReveal();
+            $(window).on('scroll', checkReveal);
+
+            // Counters
+            let countersStarted = false;
+            $(window).on('scroll', function() {
+                if (countersStarted) return;
+                const $counters = $('.counter');
+                if ($counters.length && $(window).scrollTop() + $(window).height() > $counters.first().offset().top) {
+                    countersStarted = true;
+                    $counters.each(function() {
+                        const $this = $(this);
+                        const target = $this.data('target');
+                        $({ count: 0 }).animate({ count: target }, {
+                            duration: 2000,
+                            step: function() { $this.text(Math.floor(this.count).toLocaleString()); },
+                            complete: function() { $this.text(target.toLocaleString() + '+'); }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

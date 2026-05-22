@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Spirita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="sticky-nav py-6 px-6 md:px-12 flex justify-between items-center transition-all scrolled">
+        <div class="logo">
+            <a href="index.html" class="text-2xl font-bold playfair text-dark flex items-center gap-2">
+                <span class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white text-sm">S</span> SPIRITA
+            </a>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="index.html" class="font-medium hover:text-secondary transition">Home</a>
+            <a href="shop.html" class="font-medium hover:text-secondary transition">Shop</a>
+        </nav>
+    </header>
+
+    <main class="pt-32 min-h-screen px-6 md:px-12">
+        <h1 class="text-4xl font-bold playfair mb-12">Your Cart</h1>
+        <div class="flex flex-col lg:flex-row gap-12">
+            <div id="cart-list" class="flex-[2] space-y-4"></div>
+            <div class="flex-1">
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-50">
+                    <h3 class="text-2xl font-bold mb-6">Order Summary</h3>
+                    <div class="flex justify-between mb-4 border-b pb-4">
+                        <span>Total</span>
+                        <span id="grand-total" class="font-bold text-2xl text-secondary">$0.00</span>
+                    </div>
+                    <button class="w-full btn-gradient py-4 rounded-xl font-bold" id="checkout-trigger">Checkout Now</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="hidden fixed inset-0 bg-black/70 z-[2000] flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold playfair">Complete Your Order</h2>
+                <button onclick="$('#checkout-modal').addClass('hidden')" class="text-gray-400 hover:text-dark"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="pay-form" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-sm font-semibold text-gray-600">Full Name</label>
+                    <input type="text" placeholder="John Doe" required class="w-full p-3 border rounded-xl focus:border-secondary focus:outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-sm font-semibold text-gray-600">Email Address</label>
+                    <input type="email" placeholder="john@example.com" required class="w-full p-3 border rounded-xl focus:border-secondary focus:outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-sm font-semibold text-gray-600">Payment Method</label>
+                    <select id="payment-selector" class="w-full p-3 border rounded-xl focus:border-secondary focus:outline-none">
+                        <option value="card">Credit / Debit Card</option>
+                        <option value="cod">Cash on Delivery</option>
+                    </select>
+                </div>
+                
+                <div id="card-details" class="space-y-4 pt-2">
+                    <div class="space-y-1">
+                        <label class="text-sm font-semibold text-gray-600">Card Number</label>
+                        <div class="relative">
+                            <input type="text" placeholder="XXXX XXXX XXXX XXXX" class="card-input w-full p-3 border rounded-xl focus:border-secondary focus:outline-none pl-10">
+                            <i class="fas fa-credit-card absolute left-3 top-4 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-600">Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" class="card-input w-full p-3 border rounded-xl focus:border-secondary focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-600">CVV</label>
+                            <input type="password" placeholder="***" class="card-input w-full p-3 border rounded-xl focus:border-secondary focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button class="w-full btn-gradient py-4 rounded-xl font-bold shadow-lg" id="submit-btn">
+                        <span id="btn-text">PAY & PLACE ORDER</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 bg-black/70 z-[2000] flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-3xl w-full max-w-md text-center">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-4xl text-green-500"></i>
+            </div>
+            <h2 class="text-3xl font-bold playfair mb-4">Payment Confirmed!</h2>
+            <p class="text-lg text-gray-600 mb-8">Order will be dispatched soon.</p>
+            <button onclick="window.location.href='index.html'" class="btn-gradient py-3 px-8 rounded-xl font-bold">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function render() {
+            const cart = JSON.parse(localStorage.getItem('spirita-cart')) || [];
+            let html = '';
+            let total = 0;
+            
+            if(cart.length === 0) {
+                $('#cart-list').html('<p class="text-gray-500">Cart is empty.</p>');
+                $('#grand-total').text('$0.00');
+                return;
+            }
+
+            cart.forEach((item, i) => {
+                total += item.price * item.qty;
+                html += `
+                    <div class="bg-white p-6 rounded-2xl flex items-center gap-6 shadow-sm">
+                        <img src="${item.img}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-bold">${item.title}</h4>
+                            <p class="text-secondary">$${item.price}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold">x${item.qty}</span>
+                        </div>
+                        <button onclick="remove(${i})" class="text-gray-300 hover:text-red-500"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+            });
+            $('#cart-list').html(html);
+            $('#grand-total').text('$' + total.toFixed(2));
+        }
+
+        function remove(i) {
+            let cart = JSON.parse(localStorage.getItem('spirita-cart'));
+            cart.splice(i, 1);
+            localStorage.setItem('spirita-cart', JSON.stringify(cart));
+            render();
+            window.updateCartCount();
+        }
+
+        $(document).ready(function() {
+            render();
+            $('#checkout-trigger').click(() => $('#checkout-modal').removeClass('hidden'));
+            
+            $('#payment-selector').change(function() {
+                if($(this).val() === 'cod') {
+                    $('#card-details').slideUp();
+                    $('#btn-text').text('PLACE ORDER (COD)');
+                } else {
+                    $('#card-details').slideDown();
+                    $('#btn-text').text('PAY & PLACE ORDER');
+                }
+            });
+
+            $('#pay-form').submit(function(e) {
+                e.preventDefault();
+                
+                $('#submit-btn').addClass('opacity-50 pointer-events-none').text('Processing...');
+
+                // Firework (Confetti) Animation
+                const duration = 5 * 1000;
+                const animationEnd = Date.now() + duration;
+                const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3000 };
+
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                const interval = setInterval(function() {
+                    const timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+
+                    const particleCount = 50 * (timeLeft / duration);
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                }, 250);
+
+                // Success Message and Cleanup
+                $('#checkout-modal').addClass('opacity-50 pointer-events-none');
+                
+                setTimeout(() => {
+                    localStorage.removeItem('spirita-cart');
+                    $('#checkout-modal').addClass('hidden');
+                    $('#confirmation-modal').removeClass('hidden');
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Shop | Spirita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .shop-filter-tab {
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: #f3f4f6;
+            color: #374151 !important;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            white-space: nowrap;
+        }
+        .shop-filter-tab:hover { background: #e5e7eb; }
+        .shop-filter-tab.active {
+            background: var(--secondary);
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(47,160,132,0.3);
+        }
+        .shop-card { animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <main class="pt-24 min-h-screen">
+        <section class="py-20 px-6 md:px-12">
+
+            <div class="text-center mb-10">
+                <h1 class="text-5xl font-bold playfair mb-4">Sacred Items</h1>
+                <p class="text-gray-500">Hand-picked spiritual essentials from every tradition.</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="max-w-xl mx-auto mb-8 relative">
+                <input type="text" id="shop-search" placeholder="Search items by name or religion..." class="w-full pl-12 pr-12 py-4 rounded-full border border-gray-200 focus:outline-none focus:border-secondary focus:ring-4 focus:ring-secondary/10 transition shadow-sm">
+                <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <button id="clear-shop-search" class="hidden absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition">
+                    <i class="fas fa-times text-xs text-gray-500"></i>
+                </button>
+            </div>
+
+            <!-- Religion Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 max-w-4xl mx-auto">
+                <button class="shop-filter-tab active" data-filter="all">All</button>
+                <button class="shop-filter-tab" data-filter="Islam">Islam</button>
+                <button class="shop-filter-tab" data-filter="Christianity">Christianity</button>
+                <button class="shop-filter-tab" data-filter="Hinduism">Hinduism</button>
+                <button class="shop-filter-tab" data-filter="Buddhism">Buddhism</button>
+                <button class="shop-filter-tab" data-filter="Judaism">Judaism</button>
+                <button class="shop-filter-tab" data-filter="Sikhism">Sikhism</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-7xl mx-auto" id="shop-container"></div>
+
+            <p id="no-shop-results" class="hidden text-center text-gray-400 mt-12 text-lg">No items found matching your search.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        const shopItems = [
+            // Hinduism (6 products)
+            { id: 101, title: 'Sandalwood Mala', religion: 'Hinduism', price: 14.99, rating: 4.5, img: 'https://images.pexels.com/photos/2297252/pexels-photo-2297252.jpeg' },
+            { id: 105, title: 'Hand-carved Ganesha Statue', religion: 'Hinduism', price: 89.00, rating: 5, img: 'https://images.pexels.com/photos/19867234/pexels-photo-19867234.jpeg' },
+            { id: 109, title: 'Brass Diya Oil Lamp', religion: 'Hinduism', price: 22.50, rating: 4, img: 'https://images.pexels.com/photos/34705732/pexels-photo-34705732.jpeg' },
+            { id: 119, title: 'Sacred Rudraksha Mala', religion: 'Hinduism', price: 34.99, rating: 4.5, img: 'https://images.pexels.com/photos/18723426/pexels-photo-18723426.jpeg' },
+            { id: 120, title: 'Om Symbol Wall Hanging', religion: 'Hinduism', price: 28.00, rating: 4, img: 'https://images.pexels.com/photos/32112529/pexels-photo-32112529.jpeg' },
+            { id: 121, title: 'Kumkum & Sindoor Set', religion: 'Hinduism', price: 12.99, rating: 4.5, img: 'https://images.pexels.com/photos/18408647/pexels-photo-18408647.jpeg' },
+
+            // Islam (6 products)
+            { id: 107, title: 'Premium Silk Prayer Mat', religion: 'Islam', price: 65.00, rating: 5, img: 'https://images.pexels.com/photos/5580148/pexels-photo-5580148.jpeg' },
+            { id: 110, title: 'Wooden Tasbih Prayer Beads', religion: 'Islam', price: 18.99, rating: 4.5, img: 'https://images.pexels.com/photos/16197226/pexels-photo-16197226.jpeg' },
+            { id: 117, title: 'Ornate Quran Stand (Rehal)', religion: 'Islam', price: 45.00, rating: 4.5, img: 'https://images.pexels.com/photos/16150241/pexels-photo-16150241.jpeg' },
+            { id: 123, title: 'Islamic Prayer Beads (Misbaha)', religion: 'Islam', price: 24.99, rating: 4, img: 'https://images.pexels.com/photos/16197226/pexels-photo-16197226.jpeg' },
+            { id: 124, title: 'Kaaba Canvas Wall Art', religion: 'Islam', price: 39.99, rating: 5, img: 'https://images.pexels.com/photos/15288044/pexels-photo-15288044.jpeg' },
+            { id: 125, title: 'Attar Perfume Oil Set', religion: 'Islam', price: 32.00, rating: 4.5, img: 'https://images.pexels.com/photos/34144825/pexels-photo-34144825.jpeg' },
+
+            // Christianity (6 products)
+            { id: 104, title: 'Crystal Prayer Beads', religion: 'Christianity', price: 29.99, rating: 4.5, img: 'https://images.pexels.com/photos/11006282/pexels-photo-11006282.jpeg' },
+            { id: 111, title: 'Olive Wood Cross Pendant', religion: 'Christianity', price: 19.99, rating: 4, img: 'https://images.pexels.com/photos/792953/pexels-photo-792953.jpeg' },
+            { id: 116, title: 'Traditional Rosary Beads', religion: 'Christianity', price: 22.99, rating: 5, img: 'https://images.pexels.com/photos/31678923/pexels-photo-31678923.jpeg' },
+            { id: 127, title: 'Jerusalem Cross Necklace', religion: 'Christianity', price: 34.99, rating: 4.5, img: 'https://images.pexels.com/photos/5207515/pexels-photo-5207515.jpeg' },
+            { id: 128, title: 'Holy Bible Leather Bound', religion: 'Christianity', price: 49.99, rating: 5, img: 'https://images.pexels.com/photos/35828343/pexels-photo-35828343.jpeg' },
+            { id: 129, title: 'Advent Wreath Candle Set', religion: 'Christianity', price: 28.50, rating: 4, img: 'https://images.pexels.com/photos/6233138/pexels-photo-6233138.jpeg' },
+
+            // Buddhism (6 products)
+            { id: 102, title: 'Lotus Incense Burner', religion: 'Buddhism', price: 24.50, rating: 4.5, img: 'https://images.pexels.com/photos/10733080/pexels-photo-10733080.jpeg' },
+            { id: 103, title: 'Tibetan Singing Bowl', religion: 'Buddhism', price: 55.00, rating: 5, img: 'https://images.pexels.com/photos/3544322/pexels-photo-3544322.jpeg' },
+            { id: 106, title: 'Himalayan Aromatherapy Diffuser', religion: 'Buddhism', price: 42.00, rating: 4.5, img: 'https://images.pexels.com/photos/6915313/pexels-photo-6915313.jpeg' },
+            { id: 108, title: 'Zen Garden Meditation Kit', religion: 'Buddhism', price: 34.99, rating: 4, img: 'https://images.pexels.com/photos/8180654/pexels-photo-8180654.jpeg' },
+            { id: 118, title: 'Meditating Buddha Statue', religion: 'Buddhism', price: 95.00, rating: 5, img: 'https://images.pexels.com/photos/37027741/pexels-photo-37027741.jpeg' },
+            { id: 131, title: 'Tibetan Prayer Flags', religion: 'Buddhism', price: 18.99, rating: 4.5, img: 'https://images.pexels.com/photos/11996458/pexels-photo-11996458.jpeg' },
+
+            // Judaism (6 products)
+            { id: 112, title: 'Silver Menorah Candle Holder', religion: 'Judaism', price: 75.00, rating: 5, img: 'https://images.pexels.com/photos/6114553/pexels-photo-6114553.jpeg' },
+            { id: 113, title: 'Ceremonial Shofar Horn', religion: 'Judaism', price: 65.00, rating: 4.5, img: 'https://images.pexels.com/photos/15662091/pexels-photo-15662091.png' },
+            { id: 133, title: 'Kippah (Yarmulke) Set', religion: 'Judaism', price: 22.99, rating: 4, img: 'https://images.pexels.com/photos/6115409/pexels-photo-6115409.jpeg' },
+            { id: 134, title: 'Tallit Prayer Shawl', religion: 'Judaism', price: 89.00, rating: 5, img: 'https://images.pexels.com/photos/20412731/pexels-photo-20412731.jpeg' },
+            { id: 135, title: 'Mezuzah for Doorpost', religion: 'Judaism', price: 34.99, rating: 4.5, img: 'https://images.pexels.com/photos/5985967/pexels-photo-5985967.jpeg' },
+            { id: 136, title: 'Havdalah Spice Box', religion: 'Judaism', price: 45.00, rating: 4.5, img: 'https://images.pexels.com/photos/29172132/pexels-photo-29172132.jpeg' },
+
+            // Sikhism (6 products)
+            { id: 114, title: 'Kara Steel Bracelet', religion: 'Sikhism', price: 24.99, rating: 4.5, img: 'https://images.pexels.com/photos/6277361/pexels-photo-6277361.jpeg' },
+            { id: 115, title: 'Khanda Pendant Necklace', religion: 'Sikhism', price: 32.50, rating: 5, img: 'https://images.pexels.com/photos/37313789/pexels-photo-37313789.jpeg' },
+            { id: 138, title: 'Rumala Sahib (Altar Cover)', religion: 'Sikhism', price: 55.00, rating: 4.5, img: 'https://images.pexels.com/photos/10325904/pexels-photo-10325904.jpeg' },
+            { id: 139, title: 'Kirpan Ceremonial Sword', religion: 'Sikhism', price: 78.00, rating: 5, img: 'https://images.pexels.com/photos/37313775/pexels-photo-37313775.jpeg' },
+            { id: 140, title: 'Gutka Sahib Prayer Book', religion: 'Sikhism', price: 18.99, rating: 4, img: 'https://images.pexels.com/photos/15196880/pexels-photo-15196880.jpeg' },
+            { id: 141, title: 'Khanda Wall Art', religion: 'Sikhism', price: 42.00, rating: 4.5, img: 'https://images.pexels.com/photos/12761274/pexels-photo-12761274.jpeg ' },
+        ];
+
+        let currentShopFilter = 'all';
+        let currentShopSearch = '';
+
+        function renderStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalf = rating % 1 >= 0.5;
+            for (let i = 0; i < 5; i++) {
+                if (i < fullStars) {
+                    stars += '<i class="fas fa-star" style="color: var(--secondary);"></i>';
+                } else if (i === fullStars && hasHalf) {
+                    stars += '<i class="fas fa-star-half-alt" style="color: var(--secondary);"></i>';
+                } else {
+                    stars += '<i class="far fa-star" style="color: #d1d5db;"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function renderShop(list) {
+            let html = '';
+            list.forEach(item => {
+                html += `
+                    <div class="shop-card bg-white p-6 rounded-3xl shadow-lg border border-gray-50 text-left flex flex-col group hover:shadow-2xl transition-all">
+                        <div class="h-64 overflow-hidden rounded-2xl mb-6 relative">
+                            <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&q=80&w=400';">
+                            <span class="absolute top-3 left-3 text-xs font-bold uppercase tracking-wider bg-white/90 backdrop-blur px-3 py-1 rounded-full text-secondary shadow">${item.religion}</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2 flex-1">${item.title}</h4>
+                        <div class="mb-3 text-sm">${renderStars(item.rating)}</div>
+                        <div class="flex justify-between items-center mt-auto">
+                            <span class="text-2xl font-bold text-secondary">$${item.price.toFixed(2)}</span>
+                            <div class="flex gap-2">
+                                <button class="btn-gradient px-5 py-2 rounded-full text-sm font-bold add-to-cart" data-id="${item.id}">
+                                    <i class="fas fa-cart-plus mr-1"></i> Add
+                                </button>
+                                <button class="wishlist-btn px-3 py-2 rounded-full text-sm font-bold transition ${isInWishlist(item.id) ? 'bg-accent text-white' : 'bg-gray-100 text-gray-500 hover:bg-accent hover:text-white'}" data-id="${item.id}" title="Wishlist">
+                                    <i class="${isInWishlist(item.id) ? 'fas' : 'far'} fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#shop-container').html(html);
+            $('#no-shop-results').toggleClass('hidden', list.length > 0);
+        }
+
+        function applyShopFilters() {
+            let list = shopItems;
+            if (currentShopFilter !== 'all') list = list.filter(i => i.religion === currentShopFilter);
+            if (currentShopSearch) {
+                const q = currentShopSearch.toLowerCase();
+                list = list.filter(i => i.title.toLowerCase().includes(q) || i.religion.toLowerCase().includes(q));
+            }
+            renderShop(list);
+        }
+
+        $(document).ready(function() {
+            renderShop(shopItems);
+
+            // Filter tabs
+            $(document).on('click', '.shop-filter-tab', function() {
+                $('.shop-filter-tab').removeClass('active');
+                $(this).addClass('active');
+                currentShopFilter = $(this).data('filter');
+                applyShopFilters();
+            });
+
+            // Search
+            $('#shop-search').on('input', function() {
+                currentShopSearch = $(this).val().trim();
+                $('#clear-shop-search').toggleClass('hidden', currentShopSearch.length === 0);
+                applyShopFilters();
+            });
+            $('#clear-shop-search').on('click', function() {
+                $('#shop-search').val('').trigger('input').focus();
+            });
+
+            // Add to cart
+            $(document).on('click', '.add-to-cart', function() {
+                const id = $(this).data('id');
+                const item = shopItems.find(i => i.id === id);
+                let cart = JSON.parse(localStorage.getItem('spirita-cart')) || [];
+                const existing = cart.find(c => c.id === id);
+                if (existing) existing.qty++;
+                else cart.push({ ...item, qty: 1 });
+                localStorage.setItem('spirita-cart', JSON.stringify(cart));
+                window.updateCartCount();
+
+                const $btn = $(this);
+                const original = $btn.html();
+                $btn.html('<i class="fas fa-check"></i> Added');
+                setTimeout(() => $btn.html(original), 1200);
+            });
+
+            // Wishlist toggle
+            $(document).on('click', '.wishlist-btn', function() {
+                const id = $(this).data('id');
+                if (addToWishlist(id)) {
+                    $(this).removeClass('bg-gray-100 text-gray-500 hover:bg-accent hover:text-white')
+                           .addClass('bg-accent text-white');
+                    $(this).find('i').removeClass('far').addClass('fas');
+                } else {
+                    removeFromWishlist(id);
+                    $(this).removeClass('bg-accent text-white')
+                           .addClass('bg-gray-100 text-gray-500 hover:bg-accent hover:text-white');
+                    $(this).find('i').removeClass('fas').addClass('far');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

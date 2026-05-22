@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Religions | Spirita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="sticky-nav py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="logo">
+            <a href="index.html" class="text-2xl font-bold playfair flex items-center gap-2">
+                <span class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white text-sm">S</span> SPIRITA
+            </a>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="index.html" class="font-medium hover:text-secondary transition">Home</a>
+            <a href="about.html" class="font-medium hover:text-secondary transition">About</a>
+            <div class="relative group">
+                <a href="religion.html" class="font-medium text-secondary font-bold flex items-center gap-1">
+                    Religions <i class="fas fa-chevron-down text-xs"></i>
+                </a>
+                <div class="absolute top-full left-0 w-48 bg-white shadow-xl rounded-lg py-2 hidden group-hover:block border border-gray-100 z-[1001]">
+                    <a href="religion.html?rel=Islam" class="block px-4 py-2 hover:bg-gray-50 text-sm">Islam</a>
+                    <a href="religion.html?rel=Christianity" class="block px-4 py-2 hover:bg-gray-50 text-sm">Christianity</a>
+                    <a href="religion.html?rel=Hinduism" class="block px-4 py-2 hover:bg-gray-50 text-sm">Hinduism</a>
+                    <a href="religion.html?rel=Buddhism" class="block px-4 py-2 hover:bg-gray-50 text-sm">Buddhism</a>
+                </div>
+            </div>
+            <a href="books.html" class="font-medium hover:text-secondary transition">Books</a>
+            <a href="timeline.html" class="font-medium hover:text-secondary transition">Timeline</a>
+            <a href="shop.html" class="font-medium hover:text-secondary transition">Shop</a>
+        </nav>
+        <div class="flex items-center gap-6">
+            <a href="cart.html" class="relative hover:text-secondary transition">
+                <i class="fas fa-shopping-cart text-xl"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </a>
+            <button id="menu-btn" class="md:hidden text-2xl cursor-pointer"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main class="" id="religion-page-content">
+        <div class="flex items-center justify-center py-40" id="rel-loader">
+            <div class="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white pt-20 pb-10 px-6 md:px-12 mt-20" id="global-footer"></footer>
+
+    <script src="script.js"></script>
+    <script>
+        const religionData = {
+            'Islam': {
+                title: 'Islam',
+                img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&q=80&w=1200',
+                intro: 'Islam is an Abrahamic monotheistic religion teaching that there is only one God (Allah).',
+                importance: 'It emphasizes social justice, charity, and absolute monotheism.',
+                festivals: [
+                    { name: 'Eid al-Fitr', info: 'Celebrates the end of Ramadan.' },
+                    { name: 'Eid al-Adha', info: 'The Festival of Sacrifice.' },
+                    { name: 'Hajj', info: 'The annual pilgrimage to Mecca.' },
+                    { name: 'Ramadan', info: 'The holy month of fasting.' }
+                ],
+                timeline: [
+                    { year: '610 CE', event: 'First revelation to Prophet Muhammad (PBUH).' },
+                    { year: '622 CE', event: 'The Hijra.' }
+                ],
+                places: ['Mecca', 'Medina', 'Jerusalem'],
+                icon: 'fa-moon',
+                videoId: 'XlvEymU-S4o',
+                gallery: [
+                    { src: 'https://images.pexels.com/photos/20277839/pexels-photo-20277839.jpeg', title: 'Hajj Pilgrimage', desc: 'Millions of Muslims gather in Mecca for the annual Hajj pilgrimage, a pillar of faith.' },
+                    { src: 'https://images.pexels.com/photos/4521955/pexels-photo-4521955.jpeg', title: 'Ramadan Spirituality', desc: 'A time of deep reflection, prayer, and community during the holy month of fasting.' },
+                    { src: 'https://images.pexels.com/photos/32452704/pexels-photo-32452704.jpeg', title: 'Eid ul Fitr Joy', desc: 'Celebrating the conclusion of the dawn-to-sunset fasting of Ramadan.' },
+                    { src: 'https://images.pexels.com/photos/34774783/pexels-photo-34774783.jpeg', title: 'Eid ul Adha Devotion', desc: 'Commemorating Ibrahim\'s willingness to sacrifice his son as an act of obedience to God.' },
+                    { src: 'https://images.pexels.com/photos/31485668/pexels-photo-31485668.jpeg', title: 'Eid Traditions', desc: 'Vibrant cultural celebrations and prayers during the sacred days of Eid ul Adha.' },
+                    { src: 'https://images.pexels.com/photos/34159229/pexels-photo-34159229.jpeg', title: 'Festival Atmosphere', desc: 'The joyous community spirit felt across the world during Islamic festivals.' },
+                    { src: 'https://images.pexels.com/photos/31414794/pexels-photo-31414794.jpeg', title: 'Ramadan Evenings', desc: 'The peaceful and spiritual atmosphere of the mosque during evening Taraweeh prayers.' },
+                    { src: 'https://images.pexels.com/photos/4346403/pexels-photo-4346403.jpeg', title: 'Sacred Kaaba', desc: 'The most sacred site in Islam, the Kaaba in Mecca, toward which Muslims pray.' },
+                    { src: 'https://images.pexels.com/photos/15488237/pexels-photo-15488237.jpeg', title: 'Pilgrim Devotion', desc: 'Devout pilgrims expressing their faith during the spiritual journey of Hajj.' },
+                    { src: 'https://images.pexels.com/photos/7956579/pexels-photo-7956579.jpeg', title: 'Iftar Gathering', desc: 'Families and communities breaking their fast together at sunset during Ramadan.' },
+                    { src: 'https://images.pexels.com/photos/36223556/pexels-photo-36223556.jpeg', title: 'Eid Morning Prayer', desc: 'The unified prayer that marks the joyful start of Eid celebrations worldwide.' },
+                    { src: 'https://images.pexels.com/photos/26244103/pexels-photo-26244103.jpeg', title: 'Sacred Sacrifice', desc: 'Honoring the tradition of Qurbani, a symbol of devotion during Eid al-Adha.' },
+                    { src: 'https://images.pexels.com/photos/8164743/pexels-photo-8164743.jpeg', title: 'Quran Recitation', desc: 'The beautiful recitation of the Holy Quran, central to Islamic worship.' },
+                    { src: 'https://images.pexels.com/photos/36774657/pexels-photo-36774657.jpeg', title: 'Islamic Calligraphy', desc: 'The art of sacred Arabic calligraphy, adorning mosques and sacred texts.' },
+                    { src: 'https://images.pexels.com/photos/33659525/pexels-photo-33659525.jpeg', title: 'Crescent Moon', desc: 'The crescent moon signaling the start of Ramadan and Islamic festivals.' },
+                    { src: 'https://images.pexels.com/photos/9630216/pexels-photo-9630216.jpeg', title: 'Community Unity', desc: 'The strong bond of Ummah — the global Muslim community in prayer.' }
+                ]
+            },
+            'Christianity': {
+                title: 'Christianity',
+                img: 'https://images.unsplash.com/photo-1548625361-195fe61a55ef?auto=format&fit=crop&q=80&w=1200',
+                intro: 'Based on the life and teachings of Jesus Christ.',
+                importance: 'Influenced global ethics focusing on love and forgiveness.',
+                festivals: [
+                    { name: 'Christmas', info: 'Birth of Jesus Christ.' },
+                    { name: 'Easter', info: 'Resurrection of Jesus.' }
+                ],
+                timeline: [
+                    { year: 'c. 4 BCE', event: 'Birth of Jesus.' },
+                    { year: 'c. 33 CE', event: 'Resurrection.' }
+                ],
+                places: ['Vatican City', 'Bethlehem', 'Jerusalem'],
+                icon: 'fa-cross',
+                videoId: 'a5EnGR1XqmU',
+                gallery: [
+                    { src: 'https://images.pexels.com/photos/6517793/pexels-photo-6517793.jpeg', title: 'Christmas Eve', desc: 'The holy night of Christmas Eve, filled with light and anticipation of the Savior\'s birth.' },
+                    { src: 'https://images.pexels.com/photos/29726474/pexels-photo-29726474.jpeg', title: 'Nativity Celebration', desc: 'Traditional decorations and lights commemorating the holy night in Bethlehem.' },
+                    { src: 'https://images.pexels.com/photos/33687409/pexels-photo-33687409.jpeg', title: 'Easter Morning', desc: 'The glorious light of Easter morning, celebrating the resurrection and hope for all humanity.' },
+                    { src: 'https://images.pexels.com/photos/7281799/pexels-photo-7281799.jpeg', title: 'Easter Gathering', desc: 'Family and community coming together to share the joy and spiritual significance of the Easter season.' },
+                    { src: 'https://images.pexels.com/photos/6307899/pexels-photo-6307899.jpeg', title: 'Epiphany Star', desc: 'Following the star of Epiphany, celebrating the revelation of God incarnate as Jesus Christ.' },
+                    { src: 'https://images.pexels.com/photos/35360225/pexels-photo-35360225.jpeg', title: 'Epiphany Blessings', desc: 'Cultural and spiritual celebrations marking the visit of the Magi and the baptism of Jesus.' },
+                    { src: 'https://images.pexels.com/photos/13976130/pexels-photo-13976130.jpeg', title: 'Lent Sanctuary', desc: 'The somber and reflective atmosphere of the sanctuary during the forty days of Lent.' },
+                    { src: 'https://images.pexels.com/photos/31715522/pexels-photo-31715522.jpeg', title: 'Lent Prayer', desc: 'Deepening one’s faith through prayer and self-denial during the forty days of Lent.' },
+                    { src: 'https://images.pexels.com/photos/34147589/pexels-photo-34147589.jpeg', title: 'Palm Sunday', desc: 'Commemorating Jesus\' triumphal entry into Jerusalem with palm branches and prayers.' },
+                    { src: 'https://images.pexels.com/photos/4637970/pexels-photo-4637970.jpeg', title: 'Holy Cathedral', desc: 'The grandeur of Gothic cathedrals lifting hearts toward the heavens.' },
+                    { src: 'https://images.pexels.com/photos/35654826/pexels-photo-35654826.jpeg', title: 'Stained Glass Stories', desc: 'Beautiful stained glass windows depicting sacred scenes from the Bible.' },
+                    { src: 'https://images.pexels.com/photos/12215315/pexels-photo-12215315.jpeg', title: 'Sacred Cross', desc: 'The cross — the central symbol of Christian faith and the promise of salvation.' },
+                    { src: 'https://images.pexels.com/photos/19712205/pexels-photo-19712205.jpeg', title: 'Christmas Carols', desc: 'The joyful tradition of singing Christmas carols spreading peace and goodwill.' },
+                    { src: 'https://images.pexels.com/photos/34612053/pexels-photo-34612053.jpeg', title: 'Bible Reading', desc: 'Daily reading of the Holy Scriptures, the foundation of Christian devotion.' },
+                    { src: 'https://images.pexels.com/photos/20893952/pexels-photo-20893952.jpeg', title: 'Communion', desc: 'The sacred sacrament of Holy Communion, remembering the Last Supper.' },
+                    { src: 'https://images.pexels.com/photos/15103176/pexels-photo-15103176.jpeg', title: 'Pentecost Spirit', desc: 'Celebrating the descent of the Holy Spirit upon the Apostles fifty days after Easter.' }
+                ]
+            },
+            'Hinduism': {
+                title: 'Hinduism',
+                img: 'https://images.unsplash.com/photo-1518105779142-d975fb23a3db?auto=format&fit=crop&q=80&w=1200',
+                intro: 'Oldest living religion with diverse paths and philosophies.',
+                importance: 'Pursuit of Dharma, Karma, and Moksha.',
+                festivals: [
+                    { name: 'Diwali', info: 'Festival of Lights.' },
+                    { name: 'Holi', info: 'Festival of Colors.' }
+                ],
+                timeline: [
+                    { year: '1500 BCE', event: 'Vedic Period begins.' }
+                ],
+                places: ['Varanasi', 'Haridwar', 'Rishikesh'],
+                icon: 'fa-om',
+                videoId: 'xlBEEuYIWwY',
+                gallery: [
+                    { src: 'https://images.pexels.com/photos/31203528/pexels-photo-31203528.jpeg', title: 'Holi Festival', desc: 'The vibrant celebration of colors, marking the arrival of spring and the victory of good over evil.' },
+                    { src: 'https://images.pexels.com/photos/20673648/pexels-photo-20673648.jpeg', title: 'Holi Joy', desc: 'People coming together to share joy and laughter during the spiritual festival of colors.' },
+                    { src: 'https://images.pexels.com/photos/8887272/pexels-photo-8887272.jpeg', title: 'Diwali Lights', desc: 'The Festival of Lights, symbolizing the spiritual victory of light over darkness and knowledge over ignorance.' },
+                    { src: 'https://images.pexels.com/photos/36778018/pexels-photo-36778018.jpeg', title: 'Diwali Celebration', desc: 'Traditional oil lamps (diyas) lit during Diwali to welcome prosperity and peace into the home.' },
+                    { src: 'https://images.pexels.com/photos/19235848/pexels-photo-19235848.jpeg', title: 'Navratri Garba', desc: 'The energetic traditional dance of Garba performed during the nine nights of Navratri to honor the Divine Mother.' },
+                    { src: 'https://images.pexels.com/photos/18707556/pexels-photo-18707556.jpeg', title: 'Navratri Devotion', desc: 'Celebrating the power of Goddess Durga with vibrant music, traditional attire, and rhythmic dance.' },
+                    { src: 'https://media.istockphoto.com/id/1329353656/photo/women-looking-through-sieve-on-karwa-chauth-festival.jpg?b=1&s=612x612&w=0&k=20&c=N5NTfMw9nl9dmxISpAz_OvkipytBmWPPMZqb6uIrQ6s=', title: 'Karwa Chauth Ritual', desc: 'Married Hindu women observe a fast from sunrise to moonrise for the safety and longevity of their husbands.' },
+                    { src: 'https://media.istockphoto.com/id/1560050209/photo/indian-wife-looking-husband-face-through-sieve-during-karva-chauth-festival-ceremony-concept.jpg?b=1&s=612x612&w=0&k=20&c=MXkW7TsKQ5VG8XaZMPlUdxWvDI9HMsH7WU_eJTbA22I=', title: 'Karwa Chauth Moonrise', desc: 'The tradition of looking at the moon and then the husband through a sieve to break the sacred fast.' },
+                    { src: 'https://images.pexels.com/photos/18201948/pexels-photo-18201948.jpeg', title: 'Sacred Scriptures', desc: 'Ancient Vedic texts that have guided spiritual seekers for thousands of years.' },
+                    { src: 'https://images.pexels.com/photos/27937923/pexels-photo-27937923.jpeg', title: 'Ganga Aarti', desc: 'The mesmerizing evening prayer ritual on the sacred banks of the Ganges River.' },
+                    { src: 'https://images.pexels.com/photos/34415610/pexels-photo-34415610.jpeg', title: 'Temple Architecture', desc: 'Magnificent Hindu temples showcasing intricate stone carvings and sacred geometry.' },
+                    { src: 'https://images.pexels.com/photos/32112529/pexels-photo-32112529.jpeg', title: 'Om Symbol', desc: 'The sacred sound and symbol Om — the cosmic vibration of the universe.' },
+                    { src: 'https://images.pexels.com/photos/4340795/pexels-photo-4340795.jpeg', title: 'Yoga & Meditation', desc: 'The ancient practices of yoga and meditation rooted in Hindu spiritual tradition.' },
+                    { src: 'https://images.pexels.com/photos/34400019/pexels-photo-34400019.jpeg', title: 'Rangoli Art', desc: 'Beautiful rangoli patterns drawn at doorsteps to welcome divine blessings.' },
+                    { src: 'https://images.pexels.com/photos/3973761/pexels-photo-3973761.jpeg', title: 'Sacred Offerings', desc: 'Flowers, fruits, and incense offered to deities during traditional puja ceremonies.' },
+                    { src: 'https://images.pexels.com/photos/33474317/pexels-photo-33474317.jpeg', title: 'Krishna Janmashtami', desc: 'Celebrating the birth of Lord Krishna with devotional songs, dances, and stories.' }
+                ]
+            },
+            'Sikhism': {
+                title: 'Sikhism',
+                img: 'https://images.pexels.com/photos/8112186/pexels-photo-8112186.jpeg',
+                intro: 'Sikhism is a monotheistic faith founded in the 15th century by Guru Nanak Dev Ji in the Punjab region of South Asia. It teaches one God, equality, selfless service, and guidance through the Guru Granth Sahib.',
+                importance: 'Sikhism stands as a powerful spiritual path of love, justice, and equality. Its teachings of seva (selfless service), langar (community kitchen), and remembrance of the One Creator have inspired millions to live with courage, humility, and compassion.',
+                festivals: [
+                    { name: 'Vaisakhi', info: 'Celebrates the birth of the Khalsa, the community of initiated Sikhs.' },
+                    { name: 'Guru Nanak Gurpurab', info: 'The birth anniversary of Guru Nanak Dev Ji, the founder of Sikhism.' },
+                    { name: 'Bandi Chhor Divas', info: 'Commemorates Guru Hargobind\'s release from imprisonment.' },
+                    { name: 'Hola Mohalla', info: 'A festival of martial arts, music, and poetry started by Guru Gobind Singh Ji.' }
+                ],
+                timeline: [
+                    { year: '1469 CE', event: 'Birth of Guru Nanak Dev Ji, the founder of Sikhism.' },
+                    { year: '1604 CE', event: 'Compilation of the Adi Granth, the foundational Sikh scripture.' },
+                    { year: '1699 CE', event: 'Guru Gobind Singh Ji establishes the Khalsa on Vaisakhi.' },
+                    { year: '1708 CE', event: 'The Guru Granth Sahib is declared the eternal Guru.' }
+                ],
+                places: ['Harmandir Sahib (Golden Temple)', 'Anandpur Sahib', 'Hemkund Sahib', 'Nankana Sahib'],
+                icon: 'fa-khanda',
+                videoId: 'L-1UAORcX4c',
+                gallery: [
+                    { src: 'https://images.pexels.com/photos/29429170/pexels-photo-29429170.jpeg', title: 'Golden Temple', desc: 'The magnificent Harmandir Sahib in Amritsar, the holiest gurdwara in Sikhism.' },
+                    { src: 'https://images.pexels.com/photos/23224411/pexels-photo-23224411.png', title: 'Vaisakhi Celebration', desc: 'The joyous Vaisakhi festival marking the birth of the Khalsa community.' },
+                    { src: 'https://images.pexels.com/photos/22880191/pexels-photo-22880191.jpeg', title: 'Khanda Symbol', desc: 'The Khanda — the sacred Sikh emblem representing divine knowledge and protection.' },
+                    { src: 'https://images.pexels.com/photos/35478476/pexels-photo-35478476.jpeg', title: 'Gurdwara Devotion', desc: 'Sikh devotees offering prayers and seeking divine blessings at the gurdwara.' },
+                    { src: 'https://images.pexels.com/photos/5909997/pexels-photo-5909997.jpeg', title: 'Sacred Langar', desc: 'The community kitchen serving free meals to all, regardless of faith or background.' },
+                    { src: 'https://images.pexels.com/photos/10325904/pexels-photo-10325904.jpeg', title: 'Guru Granth Sahib', desc: 'The eternal Guru and central holy scripture of the Sikh faith.' },
+                    { src: 'https://images.pexels.com/photos/33953427/pexels-photo-33953427.jpeg', title: 'Sikh Prayers', desc: 'Daily recitation of the sacred Nitnem prayers and divine hymns.' },
+                    { src: 'https://images.pexels.com/photos/14890702/pexels-photo-14890702.jpeg', title: 'Nishan Sahib', desc: 'The triangular Sikh flag flying high outside every gurdwara.' },
+                    { src: 'https://images.pexels.com/photos/28892091/pexels-photo-28892091.jpeg', title: 'Amritsar Reflection', desc: 'The Golden Temple beautifully reflected in the sacred Amrit Sarovar pool.' },
+                    { src: 'https://images.pexels.com/photos/30630008/pexels-photo-30630008.jpeg', title: 'Kirtan Music', desc: 'Devotional singing of sacred hymns that fill the air with divine peace.' },
+                    { src: 'https://images.pexels.com/photos/15969299/pexels-photo-15969299.jpeg', title: 'Five Ks', desc: 'The articles of faith worn by initiated Sikhs as symbols of their commitment.' },
+                    { src: 'https://images.pexels.com/photos/37259441/pexels-photo-37259441.jpeg', title: 'Gatka Martial Art', desc: 'Traditional Sikh martial art demonstrating courage, discipline, and skill.' },
+                    { src: 'https://images.pexels.com/photos/12540563/pexels-photo-12540563.jpeg', title: 'Seva Service', desc: 'Selfless community service is at the heart of every Sikh\'s spiritual practice.' },
+                    { src: 'https://images.pexels.com/photos/19562899/pexels-photo-19562899.jpeg', title: 'Anandpur Sahib', desc: 'The birthplace of the Khalsa, where Guru Gobind Singh Ji baptized the first Sikhs.' },
+                    { src: 'https://images.pexels.com/photos/1149632/pexels-photo-1149632.jpeg', title: 'Vaisakhi Parade', desc: 'The grand Nagar Kirtan procession celebrating Sikh heritage and devotion.' }
+                ]
+            },
+            'Judaism': {
+                title: 'Judaism',
+                img: 'https://images.pexels.com/photos/1647120/pexels-photo-1647120.jpeg',
+                intro: 'Judaism is the ancient monotheistic religion of the Jewish people, rooted in the covenant between God and the descendants of Abraham. Centered on the Torah, it has shaped spiritual and ethical thought for thousands of years.',
+                importance: 'Judaism is the foundation of the Abrahamic faiths and has profoundly influenced Western civilization through its teachings on justice, community, learning, and the sacredness of life.',
+                festivals: [
+                    { name: 'Passover (Pesach)', info: 'Commemorates the Exodus from Egypt and the freedom of the Jewish people.' },
+                    { name: 'Hanukkah', info: 'The Festival of Lights, celebrating the rededication of the Second Temple.' },
+                    { name: 'Rosh Hashanah', info: 'The Jewish New Year, a time of reflection and renewal.' },
+                    { name: 'Yom Kippur', info: 'The Day of Atonement, the holiest day in Judaism.' }
+                ],
+                timeline: [
+                    { year: 'c. 1800 BCE', event: 'The age of Abraham, the first patriarch of Judaism.' },
+                    { year: 'c. 1300 BCE', event: 'Moses receives the Torah at Mount Sinai.' },
+                    { year: '70 CE', event: 'Destruction of the Second Temple in Jerusalem.' },
+                    { year: '1948 CE', event: 'Establishment of the modern State of Israel.' }
+                ],
+                places: ['Western Wall, Jerusalem', 'Mount Sinai', 'City of David', 'Hebron'],
+                icon: 'fa-star-of-david',
+                videoId: '0VAylWxDQfk',
+                gallery: [
+                    { src: 'https://images.pexels.com/photos/18617809/pexels-photo-18617809.jpeg', title: 'Western Wall Prayer', desc: 'Worshipers praying at the Western Wall in Jerusalem, the holiest accessible site in Judaism.' },
+                    { src: 'https://images.pexels.com/photos/6115936/pexels-photo-6115936.jpeg', title: 'Hanukkah Menorah', desc: 'Lighting the menorah candles during the eight nights of Hanukkah, the Festival of Lights.' },
+                    { src: 'https://images.pexels.com/photos/4033474/pexels-photo-4033474.jpeg', title: 'Shabbat Candles', desc: 'The lighting of Shabbat candles every Friday evening, welcoming the Jewish day of rest.' },
+                    { src: 'https://images.pexels.com/photos/6054130/pexels-photo-6054130.jpeg', title: 'Passover Seder', desc: 'The traditional Passover Seder meal, retelling the story of the Exodus from Egypt.' },
+                    { src: 'https://images.pexels.com/photos/5986499/pexels-photo-5986499.jpeg', title: 'Torah Scroll', desc: 'The sacred Torah scroll, the foundational text of Jewish faith and law.' },
+                    { src: 'https://images.pexels.com/photos/4033979/pexels-photo-4033979.jpeg', title: 'Star of David', desc: 'The Star of David, a recognized symbol of Jewish identity and faith.' },
+                    { src: 'https://images.pexels.com/photos/13177360/pexels-photo-13177360.jpeg', title: 'Synagogue Beauty', desc: 'A grand synagogue interior, a place of prayer, study, and community gathering.' },
+                    { src: 'https://images.pexels.com/photos/17690078/pexels-photo-17690078.jpeg', title: 'Sacred Jerusalem', desc: 'Jerusalem, the eternal spiritual capital and heart of the Jewish people.' },
+                    { src: 'https://images.pexels.com/photos/34690332/pexels-photo-34690332.jpeg', title: 'Rosh Hashanah', desc: 'The Jewish New Year, marked by the blowing of the shofar and sweet apples with honey.' },
+                    { src: 'https://images.pexels.com/photos/3730955/pexels-photo-3730955.jpeg', title: 'Sabbath Bread', desc: 'Challah bread baked specially for Shabbat and other Jewish holy days.' },
+                    { src: 'https://images.pexels.com/photos/4033344/pexels-photo-4033344.jpeg', title: 'Bar Mitzvah', desc: 'The sacred coming-of-age ceremony marking a young person\'s entry into Jewish adulthood.' },
+                    { src: 'https://images.pexels.com/photos/33451290/pexels-photo-33451290.jpeg', title: 'Sukkot Festival', desc: 'The Feast of Tabernacles, commemorating the Israelites\' journey through the wilderness.' },
+                    { src: 'https://images.pexels.com/photos/5985979/pexels-photo-5985979.jpeg', title: 'Holy Temple', desc: 'The historical site of the Holy Temple — heart of ancient Jewish worship.' },
+                    { src: 'https://images.pexels.com/photos/5974855/pexels-photo-5974855.jpeg', title: 'Tallit Prayer', desc: 'Wearing the tallit (prayer shawl) during morning prayers and sacred ceremonies.' },
+                    { src: 'https://images.pexels.com/photos/4038241/pexels-photo-4038241.jpeg', title: 'Purim Joy', desc: 'A joyous festival celebrating the story of Esther and the salvation of the Jewish people.' },
+                    { src: 'https://images.pexels.com/photos/15662091/pexels-photo-15662091.png', title: 'Yom Kippur', desc: 'The Day of Atonement — the holiest day of the year for reflection and forgiveness.' }
+                ]
+            },
+            'Buddhism': {
+                title: 'Buddhism',
+                img: 'https://images.unsplash.com/photo-1506191696412-d0488899ca70?auto=format&fit=crop&q=80&w=1200',
+                intro: 'A path of practice and spiritual development leading to insight.',
+                importance: 'Focuses on the end of suffering through the Eightfold Path.',
+                festivals: [
+                    { name: 'Vesak', info: 'Buddha Day.' },
+                    { name: 'Magha Puja', info: 'Sangha Day.' },
+                    { name: 'Losar', info: 'Tibetan New Year.' },
+                    { name: 'Nirvana Day', info: 'Parinirvana commemoration.' }
+                ],
+                timeline: [
+                    { year: '563 BCE', event: 'Birth of Siddhartha.' },
+                    { year: '250 BCE', event: 'Emperor Ashoka spreads Buddhism.' }
+                ],
+                places: ['Bodh Gaya', 'Lumbini', 'Sarnath'],
+                icon: 'fa-dharmachakra',
+                videoId: 'lNdgT6VCuu0',
+                gallery: [
+                    { src: 'https://images.pexels.com/photos/36365735/pexels-photo-36365735.jpeg', title: 'Vesak', desc: 'Lighting lanterns to commemorate the birth, enlightenment, and death of Gautama Buddha.' },
+                    { src: 'https://images.pexels.com/photos/33091685/pexels-photo-33091685.jpeg', title: 'Magha Puja', desc: 'The spiritual gathering of monks and laypeople under the full moon.' },
+                    { src: 'https://images.pexels.com/photos/32831688/pexels-photo-32831688.jpeg', title: 'Golden Temple Devotion', desc: 'Buddhists and visitors paying respects at a magnificent golden temple sanctuary.' },
+                    { src: 'https://images.pexels.com/photos/20265613/pexels-photo-20265613.jpeg', title: 'Losar', desc: 'Tibetan New Year festivities featuring traditional masks and spiritual dances.' },
+                    { src: 'https://images.pexels.com/photos/34750357/pexels-photo-34750357.jpeg', title: 'Nirvana Day', desc: 'Contemplating the final passing of the Buddha and the teachings on impermanence.' },
+                    { src: 'https://images.pexels.com/photos/36314105/pexels-photo-36314105.jpeg', title: 'Losar Celebration', desc: 'Tibetan New Year festivities featuring traditional masks and spiritual dances.' },
+                    { src: 'https://images.pexels.com/photos/34165917/pexels-photo-34165917.jpeg', title: 'Losar Spirit', desc: 'Vibrant colors and community joy during the Tibetan spiritual holidays.' },
+                    { src: 'https://images.pexels.com/photos/5718260/pexels-photo-5718260.jpeg', title: 'Nirvana Day Reflection', desc: 'Contemplating the final passing of the Buddha and the teachings on impermanence.' },
+                    { src: 'https://images.pexels.com/photos/14579777/pexels-photo-14579777.jpeg', title: 'Buddha Statue', desc: 'A serene Buddha statue inspiring peace, mindfulness, and the path to enlightenment.' },
+                    { src: 'https://images.pexels.com/photos/372281/pexels-photo-372281.jpeg', title: 'Monk Meditation', desc: 'Monks deep in meditation, cultivating mindfulness and inner stillness.' },
+                    { src: 'https://images.pexels.com/photos/32059563/pexels-photo-32059563.jpeg', title: 'Prayer Flags', desc: 'Colorful Tibetan prayer flags carrying mantras of peace on the mountain wind.' },
+                    { src: 'https://images.pexels.com/photos/34528183/pexels-photo-34528183.jpeg', title: 'Lotus Flower', desc: 'The sacred lotus — symbol of purity, awakening, and spiritual rebirth in Buddhism.' },
+                    { src: 'https://images.pexels.com/photos/6225630/pexels-photo-6225630.jpeg', title: 'Pagoda Temple', desc: 'Magnificent pagodas standing as towering symbols of Buddhist devotion and architecture.' },
+                    { src: 'https://images.pexels.com/photos/33792537/pexels-photo-33792537.jpeg', title: 'Sand Mandala', desc: 'The intricate art of Tibetan sand mandalas — a meditation on impermanence.' },
+                    { src: 'https://images.pexels.com/photos/8078079/pexels-photo-8078079.jpeg', title: 'Zen Garden', desc: 'A peaceful Zen garden designed for quiet contemplation and inner calm.' },
+                    { src: 'https://images.pexels.com/photos/32975552/pexels-photo-32975552.jpeg', title: 'Dharma Wheel', desc: 'The Dharma Wheel — symbol of the Buddha\'s teachings and the Noble Eightfold Path.' }
+                ]
+            }
+        };
+
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const rel = urlParams.get('rel') || 'Islam';
+            const data = religionData[rel];
+
+            if(data) {
+                // Determine images for the slider based on the religion
+                const sliderImages = data.gallery.slice(0, 4); // Use first 4 gallery items for hero
+
+                const heroSection = `
+                    <div class="h-[450px] w-full rounded-3xl overflow-hidden relative mb-16 shadow-2xl flex flex-col md:flex-row bg-white border border-gray-100">
+                        <div class="flex-1 p-10 flex flex-col justify-center bg-gray-50">
+                            <span class="text-secondary font-bold uppercase tracking-widest text-sm mb-2">Sacred Journey</span>
+                            <h1 class="text-6xl font-bold playfair mb-6 leading-tight">About <br><span class="text-primary">${data.title}</span></h1>
+                            <p class="text-gray-600 text-lg mb-8 leading-relaxed max-w-md">${data.intro}</p>
+                            <button onclick="$('html, body').animate({scrollTop: $('#gallery-anchor').offset().top - 100}, 800)" class="btn-gradient px-10 py-4 rounded-full font-bold self-start shadow-xl">Explore Image Gallery</button>
+                        </div>
+                        <div class="flex-1 relative overflow-hidden group">
+                            <div id="hindu-hero-slider" class="h-full w-full">
+                                ${sliderImages.map((img, i) => `
+                                    <div class="hindu-hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000 ${i===0?'opacity-100 z-10':''}" data-index="${i}">
+                                        <img src="${img.src}" class="w-full h-full object-cover">
+                                        <div class="absolute bottom-10 left-10 text-white z-20">
+                                            <h3 class="text-3xl font-bold playfair !text-white">${img.title}</h3>
+                                            <p class="!text-white opacity-80">${img.desc.split('.')[0]}.</p>
+                                        </div>
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <!-- Slider Controls -->
+                            <div class="absolute bottom-8 right-8 flex gap-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button id="prev-hindu-hero" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 hover:bg-white hover:text-dark transition"><i class="fas fa-chevron-left"></i></button>
+                                <button id="next-hindu-hero" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 hover:bg-white hover:text-dark transition"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            
+                            <!-- Pagination -->
+                            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                                ${sliderImages.map((_, i) => `<div class="hindu-hero-dot w-2 h-2 rounded-full ${i===0?'bg-white w-6':'bg-white/50'} transition-all cursor-pointer" data-index="${i}"></div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="gallery-anchor"></div>
+                `;
+
+                const html = `
+                    <div class="px-6 md:px-12 py-12 animate-fadeIn">
+                        ${heroSection}
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
+                            <div class="md:col-span-2">
+                                <h2 class="text-3xl font-bold mb-4 playfair">Philosophy</h2>
+                                <p class="text-gray-600 text-lg mb-8">${data.intro}</p>
+                                <p class="italic border-l-4 border-secondary pl-6 mb-12 text-gray-500">${data.importance}</p>
+                                
+                                <h2 class="text-3xl font-bold mb-6 playfair">Major Festivals</h2>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                                    ${data.festivals.map(f => `
+                                        <div class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                                            <h4 class="font-bold text-secondary mb-2">${f.name}</h4>
+                                            <p class="text-sm text-gray-500">${f.info}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+
+                                <h2 class="text-3xl font-bold mb-6 playfair">History</h2>
+                                <div class="space-y-4">
+                                    ${data.timeline.map(t => `
+                                        <div class="flex gap-4">
+                                            <span class="bg-primary text-white px-3 py-1 rounded-full text-xs font-bold h-fit">${t.year}</span>
+                                            <p class="text-gray-600">${t.event}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-50 mb-8 text-center">
+                                    <h3 class="text-xl font-bold mb-4">Sacred Symbol</h3>
+                                    <i class="fas ${data.icon} text-7xl text-secondary"></i>
+                                </div>
+                                <div class="bg-gray-50 p-8 rounded-3xl">
+                                    <h3 class="text-xl font-bold mb-4">Top Pilgrimages</h3>
+                                    <ul class="space-y-3">
+                                        ${data.places.map(p => `<li class="flex gap-2 items-center"><i class="fas fa-location-dot text-primary"></i> ${p}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Section -->
+                        <section class="mb-20">
+                            <h2 class="text-4xl font-bold playfair mb-8 text-center">Sacred Visuals</h2>
+                            <div class="bg-black rounded-3xl overflow-hidden shadow-2xl aspect-video max-w-5xl mx-auto relative">
+                                <iframe 
+                                    class="w-full h-full" 
+                                    src="https://www.youtube.com/embed/${data.videoId}" 
+                                    title="YouTube video player" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </section>
+
+                        <!-- Image Gallery -->
+                        <section class="mb-20">
+                            <h2 class="text-4xl font-bold playfair mb-8 text-center">Cultural Gallery</h2>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                ${data.gallery.map((img, idx) => `
+                                    <div class="h-64 rounded-2xl overflow-hidden group relative cursor-pointer gallery-item" 
+                                         data-title="${img.title}" 
+                                         data-desc="${img.desc}" 
+                                         data-src="${img.src}">
+                                        <img src="${img.src}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4 text-center">
+                                            <span class="text-white font-bold text-lg playfair">${img.title}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Image Modal -->
+                    <div id="gallery-modal" class="fixed inset-0 bg-black/90 z-[3000] hidden items-center justify-center p-6">
+                        <button id="close-gallery" class="absolute top-8 right-8 text-white text-3xl z-[3001]"><i class="fas fa-times"></i></button>
+                        
+                        <button id="prev-image" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 gallery-nav-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl z-[3001]">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <div class="max-w-4xl w-full bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl relative">
+                            <div class="md:w-2/3 h-80 md:h-[500px]">
+                                <img id="modal-image" src="" class="w-full h-full object-cover">
+                            </div>
+                            <div class="md:w-1/3 p-8 flex flex-col justify-center">
+                                <h3 id="modal-image-title" class="text-3xl font-bold playfair mb-4"></h3>
+                                <p id="modal-image-desc" class="text-gray-600 leading-relaxed"></p>
+                            </div>
+                        </div>
+
+                        <button id="next-image" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 gallery-nav-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl z-[3001]">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                `;
+                $('#religion-page-content').html(html);
+            }
+
+            // Gallery Modal Logic
+            let currentGalleryIndex = 0;
+            let currentGalleryData = [];
+
+            $(document).on('click', '.gallery-item', function() {
+                currentGalleryData = data.gallery;
+                currentGalleryIndex = $('.gallery-item').index(this);
+                updateModalContent();
+                $('#gallery-modal').css('display', 'flex').hide().fadeIn();
+            });
+
+            function updateModalContent() {
+                const item = currentGalleryData[currentGalleryIndex];
+                $('#modal-image').fadeOut(200, function() {
+                    $(this).attr('src', item.src).fadeIn(200);
+                });
+                $('#modal-image-title').text(item.title);
+                $('#modal-image-desc').text(item.desc);
+            }
+
+            $(document).on('click', '#next-image', function(e) {
+                e.stopPropagation();
+                currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryData.length;
+                updateModalContent();
+            });
+
+            $(document).on('click', '#prev-image', function(e) {
+                e.stopPropagation();
+                currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryData.length) % currentGalleryData.length;
+                updateModalContent();
+            });
+
+            $(document).on('click', '#close-gallery, #gallery-modal', function(e) {
+                if (e.target !== this && !$(e.target).closest('#close-gallery').length) return;
+                $('#gallery-modal').fadeOut();
+            });
+
+            // Hinduism Hero Slider Logic
+            if($('#hindu-hero-slider').length) {
+                let hinduSlideIndex = 0;
+                const slides = $('.hindu-hero-slide');
+                const dots = $('.hindu-hero-dot');
+                
+                function showHinduSlide(n) {
+                    slides.removeClass('z-10 opacity-100').addClass('opacity-0');
+                    dots.removeClass('bg-white w-6').addClass('bg-white/50');
+                    
+                    hinduSlideIndex = (n + slides.length) % slides.length;
+                    
+                    slides.eq(hinduSlideIndex).addClass('z-10 opacity-100');
+                    dots.eq(hinduSlideIndex).addClass('bg-white w-6').removeClass('bg-white/50');
+                }
+
+                $('#next-hindu-hero').click(() => showHinduSlide(hinduSlideIndex + 1));
+                $('#prev-hindu-hero').click(() => showHinduSlide(hinduSlideIndex - 1));
+                $('.hindu-hero-dot').click(function() { showHinduSlide($(this).data('index')); });
+
+                // Constant Auto Movement
+                setInterval(() => {
+                    showHinduSlide(hinduSlideIndex + 1);
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

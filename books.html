@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sacred Books | Spirita</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .book-cover {
+        position: relative;
+        width: 250px;
+        height: 200px;
+        max-width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      }
+      .wishlist-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(6px);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: none;
+        outline: none;
+      }
+      .wishlist-btn:hover {
+        transform: scale(1.15);
+      }
+      .wishlist-btn.active {
+        background: #ff0000 !important;
+      }
+      .wishlist-btn.active i {
+        color: #ffffff !important;
+      }
+      .wishlist-btn i {
+        color: #6b7280;
+        transition: color 0.2s;
+        font-size: 16px;
+        pointer-events: none;
+      }
+      .wishlist-btn:hover i {
+        color: #ff0000;
+      }
+      .wishlist-btn.active:hover i {
+        color: #ffffff !important;
+      }
+
+      .filter-tab {
+        padding: 10px 24px;
+        border-radius: 999px;
+        background: #f3f4f6;
+        color: #374151 !important;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+      .filter-tab:hover {
+        background: #e5e7eb;
+      }
+      .filter-tab.active {
+        background: var(--secondary);
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(47, 160, 132, 0.3);
+      }
+
+      .book-card {
+        animation: fadeIn 0.5s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="pt-24 min-h-screen">
+      <section class="py-20 px-6 md:px-12">
+        <div class="text-center mb-12">
+          <h1 class="text-5xl font-bold playfair mb-4">The Library of Soul</h1>
+          <p class="text-gray-500">
+            Ancient scriptures and modern guides on world's sacred traditions.
+          </p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="max-w-xl mx-auto mb-10 relative">
+          <input
+            type="text"
+            id="book-search"
+            placeholder="Search by title or religion..."
+            class="w-full pl-12 pr-12 py-4 rounded-full border border-gray-200 focus:outline-none focus:border-secondary focus:ring-4 focus:ring-secondary/10 transition shadow-sm"
+          />
+          <i
+            class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
+          ></i>
+          <button
+            id="clear-search"
+            class="hidden absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition"
+          >
+            <i class="fas fa-times text-xs text-gray-500"></i>
+          </button>
+        </div>
+
+        <!-- Religion Filter Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12" id="filter-tabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="Islam">Islam</button>
+          <button class="filter-tab" data-filter="Christianity">
+            Christianity
+          </button>
+          <button class="filter-tab" data-filter="Hinduism">Hinduism</button>
+          <button class="filter-tab" data-filter="Buddhism">Buddhism</button>
+          <button class="filter-tab" data-filter="Judaism">Judaism</button>
+          <button class="filter-tab" data-filter="Sikhism">Sikhism</button>
+        </div>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-7xl mx-auto"
+          id="books-container"
+        >
+          <!-- JavaScript handles this -->
+        </div>
+
+        <p
+          id="no-results"
+          class="hidden text-center text-gray-400 mt-12 text-lg"
+        >
+          No books found matching your search.
+        </p>
+      </section>
+    </main>
+
+    <!-- Download Progress Modal -->
+    <div
+      id="download-modal"
+      class="fixed inset-0 bg-black/80 z-[3100] hidden items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-md p-8 shadow-2xl text-center"
+      >
+        <div id="download-progress-view">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary/10 flex items-center justify-center"
+          >
+            <i class="fas fa-cloud-arrow-down text-3xl text-secondary"></i>
+          </div>
+          <h3 class="text-2xl font-bold playfair mb-2">Downloading…</h3>
+          <p id="download-filename" class="text-sm text-gray-500 mb-6 truncate">
+            file.pdf
+          </p>
+
+          <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden mb-3">
+            <div
+              id="download-bar"
+              class="h-full rounded-full transition-all duration-200 ease-linear"
+              style="
+                width: 0%;
+                background: linear-gradient(90deg, #8cc0eb, #2fa084);
+              "
+            ></div>
+          </div>
+
+          <div class="flex justify-between text-xs text-gray-500 mb-2">
+            <span><span id="download-percent">0</span>% complete</span>
+            <span><span id="download-size">0.0</span> MB / 4.8 MB</span>
+          </div>
+
+          <p class="text-xs text-gray-400 mt-4 italic" id="download-status">
+            Connecting to Spirita library…
+          </p>
+        </div>
+
+        <div id="download-done-view" class="hidden">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center"
+          >
+            <i class="fas fa-check text-3xl text-green-600"></i>
+          </div>
+          <h3 class="text-2xl font-bold playfair mb-2">Download Complete!</h3>
+          <p class="text-sm text-gray-500 mb-6">
+            Your sample has been saved to your device.
+          </p>
+          <button
+            id="download-close"
+            class="btn-gradient w-full py-3 rounded-full font-bold"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description Modal -->
+    <div
+      id="desc-modal"
+      class="fixed inset-0 bg-black/70 z-[3000] hidden items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col md:flex-row relative"
+      >
+        <button
+          id="close-desc"
+          class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-gray-100 flex items-center justify-center transition shadow-md"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="md:w-2/5 p-6 bg-gray-50 flex items-center justify-center">
+          <img
+            id="desc-img"
+            src=""
+            alt=""
+            class="max-h-80 rounded-lg shadow-xl"
+          />
+        </div>
+        <div class="md:w-3/5 p-8 flex flex-col justify-center overflow-y-auto">
+          <span
+            id="desc-religion"
+            class="text-secondary text-xs font-bold uppercase tracking-widest mb-2"
+          ></span>
+          <h3
+            id="desc-title"
+            class="text-2xl font-bold playfair mb-4 leading-tight"
+          ></h3>
+          <p
+            id="desc-text"
+            class="text-gray-600 leading-relaxed mb-6 text-sm"
+          ></p>
+          <span
+            id="desc-price"
+            class="text-2xl font-bold text-primary block mb-4"
+          ></span>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button
+              id="desc-buy"
+              class="btn-gradient px-6 py-2.5 rounded-full text-sm font-bold flex items-center justify-center gap-2 flex-1"
+            >
+              <i class="fas fa-bolt"></i> Buy Now
+            </button>
+            <button
+              id="desc-download"
+              class="border-2 border-secondary text-secondary hover:bg-secondary hover:text-white px-6 py-2.5 rounded-full text-sm font-bold flex items-center justify-center gap-2 flex-1 transition"
+            >
+              <i class="fas fa-download"></i> Download
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      const books = [
+        {
+          id: 1,
+          title: "Hindu Festivals and Traditions",
+          religion: "Hinduism",
+          price: 14.99,
+          file:"https://read.amazon.com/sample/0756594499?clientId=share",
+          img: "https://toppsta.com/images/covers/0/5/6/6/9781398260566-sm.webp?t=1745555705",
+          desc: "Step into the colorful world of Hinduism, where festivals like Diwali, Holi, and Navratri illuminate every season. This beautifully illustrated book introduces readers to the rich traditions, sacred rituals, and spiritual stories that have shaped Hindu culture for thousands of years. Perfect for curious learners of all ages.",
+        },
+        {
+          id: 2,
+          title: "Christian Festivals and Traditions",
+          religion: "Christianity",
+          price: 14.99,
+          img: "https://toppsta.com/images/covers/0/5/4/2/9781398260542-sm.webp?t=1745555705",
+          desc: "Discover the meaning behind Christmas, Easter, Lent, and Pentecost in this engaging guide to Christian traditions. With warm illustrations and accessible storytelling, this book explores the spiritual significance of the festivals that bring Christian communities together throughout the year.",
+        },
+        {
+          id: 3,
+          title: "Islamic Festivals and Traditions",
+          religion: "Islam",
+          price: 14.99,
+          img: "https://toppsta.com/images/covers/0/5/9/7/9781398260597-sm.webp?t=1745555706",
+          desc: "Explore the sacred celebrations of Islam — from the holy month of Ramadan to the joyful festivities of Eid al-Fitr and Eid al-Adha. This thoughtful guide shares the meaning behind Islamic traditions, the significance of the Five Pillars, and the spirit of community and charity at the heart of the faith.",
+        },
+        {
+          id: 4,
+          title: "Buddhist Festivals and Traditions",
+          religion: "Buddhism",
+          price: 14.99,
+          img: "https://toppsta.com/images/covers/0/5/8/0/9781398260580-sm.webp?t=1745555706",
+          desc: "Journey through the peaceful traditions of Buddhism — from Vesak and Magha Puja to the contemplative practices of meditation and mindfulness. This gentle, insightful book introduces young readers to the teachings of the Buddha and the festivals that celebrate compassion, wisdom, and inner peace.",
+        },
+        {
+          id: 9,
+          title: "Jewish Festivals and Traditions",
+          religion: "Judaism",
+          price: 14.99,
+          img: "https://toppsta.com/images/covers/0/5/7/3/9781398260573-sm.webp?t=1745555705",
+          desc: "Discover the rich heritage of Judaism through this beautifully illustrated guide. From the joyful lights of Hanukkah and the freedom story of Passover to the reflective days of Rosh Hashanah and Yom Kippur, this book introduces readers to the festivals, prayers, and timeless traditions that have sustained the Jewish people for thousands of years.",
+        },
+        {
+          id: 10,
+          title: "Sikh Festivals and Traditions",
+          religion: "Sikhism",
+          price: 14.99,
+          img: "https://toppsta.com/images/covers/0/5/5/9/9781398260559.webp?t=1745555705",
+          desc: "Step into the inspiring world of Sikhism through this colorful and accessible guide. Discover the joyful celebrations of Vaisakhi, the spiritual significance of Guru Nanak Gurpurab, and the peaceful traditions of langar and seva. Learn about the sacred Guru Granth Sahib, the Five Ks, and the values of equality, courage, and compassion that define the Sikh way of life.",
+        },
+        {
+          id: 19,
+          title: "The First Christmas Night",
+          religion: "Christianity",
+          price: 19.99,
+          file:"https://read.amazon.com/sample/0824956532?clientId=share",
+          img: "https://m.media-amazon.com/images/I/51MI0E1nD2L._SX342_SY445_FMwebp_.jpg",
+          desc: "This is such a beautiful book! Tells the story of Christ birth, and a beautiful poem-like verse.",
+        },
+        {
+          id: 20,
+          title: "The Berenstain Bears and the Easter Story",
+          religion: "Christianity",
+          price: 19.99,
+          file:"https://read.amazon.com/sample/0310720877?clientId=share",
+          img: "https://m.media-amazon.com/images/I/911c6G-ZTrL._SY342_.jpg",
+          desc: "Join the Berenstain Bears as they discover the true meaning of Easter through faith, family, and love. This heartwarming story teaches children about kindness, hope, and the Easter celebration in a fun and meaningful way.",
+        },
+        {
+          id: 21,
+          title: "The Story of Vesak",
+          religion: "Buddhism",
+          price: 19.99,
+          file:"https://read.amazon.com/sample/B0FCY9LQYN?clientId=share",
+          img: "https://m.media-amazon.com/images/I/61vR6NGtd6L._SY342_.jpg",
+          desc: "Discover the meaning behind Vesak, the sacred Buddhist festival celebrating the birth, enlightenment, and passing of the Buddha. Through gentle storytelling and vibrant illustrations, readers explore peaceful traditions, temple ceremonies, meditation, and the values of mindfulness and gratitude shared by Buddhist communities around the world.",
+        },
+
+        // ---------- HINDUISM ----------
+        {
+          id: 11,
+          title: "Festival of Colors",
+          religion: "Hinduism",
+          price: 12.99,
+          img: "./Assets/images/festival of colors.png",
+          desc: "A vibrant celebration of Holi, the Hindu festival of colors. This beautifully illustrated book invites readers into the joyful traditions of springtime — capturing the laughter, music, and shared bursts of color that bring families and communities together to celebrate love, forgiveness, and renewal.",
+        },
+        {
+          id: 12,
+          title: "The Festival of Lights: A Lift-the-Flap Diwali Celebration",
+          religion: "Hinduism",
+          price: 16.99,
+          img: "./Assets/images/festival of lights.png",
+          desc: "An interactive lift-the-flap journey through Diwali, the Hindu festival of lights. Children will discover the warmth of family gatherings, the glow of diyas, the joy of sharing sweets, and the spiritual meaning behind one of the most beloved celebrations in Hindu culture.",
+        },
+        {
+          id: 13,
+          title: "Besakhiyon Ke Sahare",
+          religion: "Hinduism",
+          price: 11.5,
+          img: "./Assets/images/Besakhiyon Ke Sahare.png",
+          desc: "A heartfelt Hindi tale that explores faith, resilience, and the strength found in family and tradition. Through gentle storytelling, the book reflects on the spiritual values that have guided generations of devotees through life's most meaningful moments.",
+        },
+
+        // ---------- ISLAM ----------
+        {
+          id: 14,
+          title: "Hamza Learns About Eid-ul-Adha",
+          religion: "Islam",
+          price: 10.99,
+          img: "https://images.openai.com/static-rsc-4/cdgGpAn5ALOHU-x12j6OrYzD_tq1v5wsMkHV3T3QfXUe_tQCL-n8HBgsPVSQFPQ2HpKUQtjY3_CyBgsxsmi9TgR7p2j09I1lVUBQufoHwzlSTjzJSchYor0ZAQMW1a-IxUh4uOg0awJVVk0wRk_AhL50K0fQkYHewlOiucbVTr6B7fxMZj8QYXLNguYb3n4r?purpose=fullsize",
+          desc: "Follow young Hamza as he discovers the spiritual meaning of Eid-ul-Adha — the Festival of Sacrifice. This warm and family-friendly story introduces children to the story of Prophet Ibrahim, the values of devotion and charity, and the joyful traditions Muslim families share each year.",
+        },
+        {
+          id: 15,
+          title: "Eid Empanadas: A Latino Ramadan and Eid-ul-Fitr",
+          religion: "Islam",
+          price: 13.99,
+          img: "https://images.openai.com/static-rsc-4/FUasmhOQ90nJshdwd3mcO0xJh_2MnaXTDqIZ_li8poYdsjUwzUuTd2fnwsPF5I69YYlt7j8wPNSpGgBZdOky-bH0-rHItxxQEcFg61sVikTyZ2Erk3Ho2e_ys6SahhsC0WKl_BvQMTNlAr5bJFG0AEbT-84VchU8fxeB_L3smzr8kWOPJ825vV_k9mg034Xr?purpose=fullsize",
+          desc: "A beautiful blend of cultures, this story celebrates a Latino-Muslim family observing Ramadan and Eid-ul-Fitr. Through the warmth of shared meals — including delicious empanadas at iftar — readers experience the joy of fasting, faith, and family that crosses every border.",
+        },
+        {
+          id: 16,
+          title: "Bazar Mein Ramdhan",
+          religion: "Islam",
+          price: 11.99,
+          img: "https://images.openai.com/static-rsc-4/7T10At0GCqJdQfSS-F-TjEPQybXf7x3TAdX9dcAlOa_1YXjN2FkcHFFzJuq-x-8u5bVBhRW9AgYoTu3ile5lpzOwYLRN7oUFKfe_Ws3KaH_mdX2zoCt9N4b4J9zpQvYcCDkY_lBDwd5QSzZs6cKW-AUdfoxVR4dTsCFfxFhPBS_be6TMELFWvpbQ4XsbvGtm?purpose=fullsize",
+          desc: "Step into a bustling marketplace during the holy month of Ramadan. This vivid Urdu-language story captures the magic of pre-iftar shopping, glowing lanterns, the scent of fresh dates, and the joyful sense of community that fills the streets during one of Islam's most sacred months.",
+        },
+
+        // ---------- JUDAISM ----------
+        {
+          id: 17,
+          title:
+            "The Jewish Festivals: A Guide to Their History and Observance",
+          religion: "Judaism",
+          price: 18.99,
+          img: "https://m.media-amazon.com/images/I/91NSLDmTTLL._SY522_.jpg",
+          desc: "A comprehensive guide to the major Jewish festivals — including Passover, Hanukkah, Rosh Hashanah, and Yom Kippur. This thoughtful book explores the rich history, sacred rituals, and spiritual meaning behind each celebration, making it an essential companion for learners and the devout alike.",
+        },
+
+        // ---------- SIKHISM ----------
+        {
+          id: 18,
+          title:
+            "Sikh Festivals & Celebrations: The Ultimate Children's Guide to Sikh History",
+          religion: "Sikhism",
+          price: 15.99,
+          file:"https://read.amazon.com/sample/0756594308?clientId=share",
+          img: "https://m.media-amazon.com/images/I/71dfB7fvcLL._SY385_.jpg",
+          desc: "An engaging children's guide to the festivals and history of Sikhism. From Vaisakhi and Guru Nanak Gurpurab to the inspiring stories of the ten Gurus, this colorful book introduces young readers to the sacred traditions, values of seva, and the courageous spirit of the Sikh community.",
+        },
+      ];
+
+      function isWishlisted(id) {
+        const list = JSON.parse(
+          localStorage.getItem("spirita-wishlist") || "[]",
+        ).map(Number);
+        return list.includes(Number(id));
+      }
+
+      function toggleWishlist(id) {
+        let list = JSON.parse(
+          localStorage.getItem("spirita-wishlist") || "[]",
+        ).map(Number);
+        const numId = Number(id);
+        if (list.includes(numId)) {
+          list = list.filter((x) => x !== numId);
+        } else {
+          list.push(numId);
+        }
+        localStorage.setItem("spirita-wishlist", JSON.stringify(list));
+      }
+
+      function renderBooks(list) {
+        let html = "";
+        list.forEach((book) => {
+          const wished = isWishlisted(book.id);
+          html += `
+                    <div class="book-card bg-white p-4 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group flex flex-col">
+                        <div class="book-cover">
+                            <button class="wishlist-btn ${wished ? "active" : ""}" data-id="${book.id}" title="Add to Wishlist">
+                                <i class="${wished ? "fas" : "far"} fa-heart"></i>
+                            </button>
+                            <img src="${book.img}" alt="${book.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" ">
+                        </div>
+                        <div class="mt-4 flex flex-col flex-1">
+                            <span class="text-xs font-bold text-secondary uppercase tracking-wider">${book.religion}</span>
+                            <h4 class="font-bold text-base mt-1 mb-2 leading-tight">${book.title}</h4>
+                            <span class="text-primary font-bold text-lg mb-3 mt-auto">$${book.price.toFixed(2)}</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="read-desc bg-gray-100 hover:bg-gray-200 text-dark text-xs font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1" data-id="${book.id}" title="Read Description">
+                                    <i class="fas fa-book-open"></i> Description
+                                </button>
+                                <button class="buy-now btn-gradient text-xs font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1" data-id="${book.id}" title="Buy Now">
+                                    <i class="fas fa-bolt"></i> Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        });
+        $("#books-container").html(html);
+        $("#no-results").toggleClass("hidden", list.length > 0);
+      }
+
+      let currentFilter = "all";
+      let currentSearch = "";
+
+      function applyFilters() {
+        let list = books;
+        if (currentFilter !== "all")
+          list = list.filter((b) => b.religion === currentFilter);
+        if (currentSearch) {
+          const q = currentSearch.toLowerCase();
+          list = list.filter(
+            (b) =>
+              b.title.toLowerCase().includes(q) ||
+              b.religion.toLowerCase().includes(q),
+          );
+        }
+        renderBooks(list);
+      }
+
+      $(document).ready(function () {
+        renderBooks(books);
+
+        // Filter tabs
+        $(document).on("click", ".filter-tab", function () {
+          $(".filter-tab").removeClass("active");
+          $(this).addClass("active");
+          currentFilter = $(this).data("filter");
+          applyFilters();
+        });
+
+        // Search
+        $("#book-search").on("input", function () {
+          currentSearch = $(this).val().trim();
+          $("#clear-search").toggleClass("hidden", currentSearch.length === 0);
+          applyFilters();
+        });
+        $("#clear-search").on("click", function () {
+          $("#book-search").val("").trigger("input").focus();
+        });
+
+        // Wishlist
+        $(document).on("click", ".wishlist-btn", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const id = parseInt($(this).attr("data-id"), 10);
+          if (isNaN(id)) return;
+
+          toggleWishlist(id);
+          const wished = isWishlisted(id);
+
+          const $btn = $(this);
+          $btn.toggleClass("active", wished);
+          const $icon = $btn.find("i");
+          if (wished) {
+            $icon.removeClass("far").addClass("fas");
+          } else {
+            $icon.removeClass("fas").addClass("far");
+          }
+        });
+
+        // Buy Now -> add to cart only (no redirect)
+        $(document).on("click", ".buy-now", function () {
+          const id = $(this).data("id");
+          const item = books.find((b) => b.id === id);
+          let cart = JSON.parse(localStorage.getItem("spirita-cart")) || [];
+          const existing = cart.find((c) => c.id === id);
+          if (existing) existing.qty++;
+          else cart.push({ ...item, qty: 1 });
+          localStorage.setItem("spirita-cart", JSON.stringify(cart));
+          window.updateCartCount();
+
+          const $btn = $(this);
+          const original = $btn.html();
+          $btn.html('<i class="fas fa-check"></i> Added');
+          setTimeout(() => $btn.html(original), 1500);
+        });
+
+        // Description Modal
+        $(document).on("click", ".read-desc", function () {
+          const id = $(this).data("id");
+          const b = books.find((x) => x.id === id);
+          $("#desc-img").attr("src", b.img);
+          $("#desc-religion").text(b.religion);
+          $("#desc-title").text(b.title);
+          $("#desc-text").text(b.desc);
+          $("#desc-price").text("$" + b.price.toFixed(2));
+          $("#desc-buy").data("id", b.id);
+          $("#desc-modal").css("display", "flex").hide().fadeIn(300);
+        });
+
+        $("#desc-buy").on("click", function () {
+          const id = $(this).data("id");
+          const item = books.find((b) => b.id === id);
+          let cart = JSON.parse(localStorage.getItem("spirita-cart")) || [];
+          const existing = cart.find((c) => c.id === id);
+          if (existing) existing.qty++;
+          else cart.push({ ...item, qty: 1 });
+          localStorage.setItem("spirita-cart", JSON.stringify(cart));
+          window.updateCartCount();
+
+          const $btn = $(this);
+          const original = $btn.html();
+          $btn.html('<i class="fas fa-check"></i> Added to Cart');
+          setTimeout(() => {
+            $btn.html(original);
+            $("#desc-modal").fadeOut(200);
+          }, 1200);
+        });
+
+        $("#close-desc").on("click", () => $("#desc-modal").fadeOut(200));
+        $("#desc-modal").on("click", function (e) {
+          if (e.target === this) $("#desc-modal").fadeOut(200);
+        });
+
+        // Download Sample (from Description popup) - fake animated download
+        let currentDownloadBook = null;
+
+        $("#desc-download").on("click", function () {
+          // Use the book that was opened in the description modal
+          const id = $("#desc-buy").data("id");
+          currentDownloadBook = books.find((x) => x.id === id);
+          if (!currentDownloadBook) return;
+
+          // Reset state
+          $("#download-progress-view").removeClass("hidden");
+          $("#download-done-view").addClass("hidden");
+          $("#download-bar").css("width", "0%");
+          $("#download-percent").text("0");
+          $("#download-size").text("0.0");
+          $("#download-filename").text(
+            currentDownloadBook.title.replace(/\s+/g, "-") + "-Sample.pdf",
+          );
+          $("#download-status").text("Connecting to Spirita library…");
+
+          // Hide description modal and show download modal on top
+          $("#desc-modal").fadeOut(150);
+          $("#download-modal").css("display", "flex").hide().fadeIn(200);
+
+          // Fake progressive download
+          const totalSizeMB = 4.8;
+          let progress = 0;
+          const startTime = Date.now();
+
+          const interval = setInterval(() => {
+            // Random increment (1% to 7% per tick)
+            progress += Math.random() * 6 + 1;
+            if (progress >= 100) progress = 100;
+
+            const sizeNow = ((totalSizeMB * progress) / 100).toFixed(1);
+
+            $("#download-bar").css("width", progress + "%");
+            $("#download-percent").text(Math.floor(progress));
+            $("#download-size").text(sizeNow);
+
+            // Update status messages
+            if (progress < 15) {
+              $("#download-status").text("Connecting to Spirita library…");
+            } else if (progress < 40) {
+              $("#download-status").text("Preparing sample chapters…");
+            } else if (progress < 70) {
+              $("#download-status").text("Downloading sacred content…");
+            } else if (progress < 95) {
+              $("#download-status").text(
+                "Almost there — finalizing your file…",
+              );
+            } else {
+              $("#download-status").text("Finishing download…");
+            }
+
+            if (progress >= 100) {
+              clearInterval(interval);
+
+              setTimeout(() => {
+                // Show success screen (no real file download)
+                $("#download-progress-view").addClass("hidden");
+                $("#download-done-view").removeClass("hidden");
+
+                // REAL FILE DOWNLOAD
+                const link = document.createElement("a");
+                link.href = currentDownloadBook.file;
+                link.download = currentDownloadBook.title + ".pdf";
+
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }, 500);
+            }
+          }, 180);
+        });
+
+        $("#download-close").on("click", function () {
+          $("#download-modal").fadeOut(200);
+        });
+
+        $("#download-modal").on("click", function (e) {
+          // Only allow closing when download is complete
+          if (
+            e.target === this &&
+            !$("#download-done-view").hasClass("hidden")
+          ) {
+            $("#download-modal").fadeOut(200);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

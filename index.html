@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spirita | Religious Festivals & Spiritual Culture</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Global Hero Section -->
+    <section id="hero" class="hero-container">
+        <div class="hero-left">
+            <div class="hero-content active" data-index="0">
+                <span class="text-secondary font-semibold tracking-widest uppercase text-sm mb-4 block">Sanatana Dharma</span>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 leading-tight">Discover <br><span class="text-primary">Hinduism</span></h1>
+                <p class="text-gray-600 mb-8 max-w-md leading-relaxed">Celebrate Diwali, Holi, Navratri and the eternal wisdom of the Vedas — a journey through dharma, karma, and moksha.</p>
+                <div class="flex gap-4">
+                    <a href="religion.html?rel=Hinduism" class="btn-gradient px-8 py-3 rounded-full font-semibold text-center">Explore Hinduism</a>
+                    <a href="books.html" class="border-2 border-gray-200 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition text-center">Bhagavad Gita</a>
+                </div>
+            </div>
+            <div class="hero-content" data-index="1">
+                <span class="text-secondary font-semibold tracking-widest uppercase text-sm mb-4 block">The Way of Christ</span>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 leading-tight">Embrace <br><span class="text-primary">Christianity</span></h1>
+                <p class="text-gray-600 mb-8 max-w-md leading-relaxed">Walk through Christmas, Easter, Lent, and Epiphany — celebrating love, faith, and the message of resurrection.</p>
+                <div class="flex gap-4">
+                    <a href="religion.html?rel=Christianity" class="btn-gradient px-8 py-3 rounded-full font-semibold text-center">Explore Christianity</a>
+                    <a href="books.html" class="border-2 border-gray-200 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition text-center">Holy Bible</a>
+                </div>
+            </div>
+            <div class="hero-content" data-index="2">
+                <span class="text-secondary font-semibold tracking-widest uppercase text-sm mb-4 block">The Sangha Dharma</span>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 leading-tight">Awaken with <br><span class="text-primary">Buddhism</span></h1>
+                <p class="text-gray-600 mb-8 max-w-md leading-relaxed">Experience Vesak, Magha Puja, Losar, and Nirvana Day — the path of mindfulness, compassion, and the Eightfold Way.</p>
+                <div class="flex gap-4">
+                    <a href="religion.html?rel=Buddhism" class="btn-gradient px-8 py-3 rounded-full font-semibold text-center">Explore Buddhism</a>
+                    <a href="books.html" class="border-2 border-gray-200 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition text-center">Dhammapada</a>
+                </div>
+            </div>
+            <div class="hero-content" data-index="3">
+                <span class="text-secondary font-semibold tracking-widest uppercase text-sm mb-4 block">Submission to Allah</span>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 leading-tight">Reflect with <br><span class="text-primary">Islam</span></h1>
+                <p class="text-gray-600 mb-8 max-w-md leading-relaxed">Honor Ramadan, Eid al-Fitr, Eid al-Adha, and Hajj — guided by the Five Pillars and the wisdom of the Holy Quran.</p>
+                <div class="flex gap-4">
+                    <a href="religion.html?rel=Islam" class="btn-gradient px-8 py-3 rounded-full font-semibold text-center">Explore Islam</a>
+                    <a href="books.html" class="border-2 border-gray-200 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition text-center">Holy Quran</a>
+                </div>
+            </div>
+
+            <!-- Hidden controls (kept for slider JS to work) -->
+            <div class="hidden">
+                <div id="hero-dots">
+                    <div class="dot" data-index="0"></div>
+                    <div class="dot" data-index="1"></div>
+                    <div class="dot" data-index="2"></div>
+                    <div class="dot" data-index="3"></div>
+                </div>
+                <button id="prev-hero"></button>
+                <button id="next-hero"></button>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-slide-img active" data-index="0" style="background-image: url('Assets/hindu.webp');"></div>
+            <div class="hero-slide-img" data-index="1" style="background-image: url('Assets/christian.webp');"></div>
+            <div class="hero-slide-img" data-index="2" style="background-image: url('Assets/bhuddism.webp');"></div>
+            <div class="hero-slide-img" data-index="3" style="background-image: url('Assets/islam.webp');"></div>
+        </div>
+    </section>
+
+    <main>
+        <div id="home-page" class="page-section block">
+            <!-- Featured Festivals -->
+            <section class="py-20 px-6 md:px-12 bg-white">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold playfair mb-4">Major Global Festivals</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto">Explore the most significant spiritual celebrations that bring people together across the globe.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="festival-card group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white"
+                         data-religion="Hinduism"
+                         data-religion-link="religion.html?rel=Hinduism"
+                         data-title="Diwali - Festival of Lights"
+                         data-image="https://images.pexels.com/photos/8887374/pexels-photo-8887374.jpeg"
+                         data-short="The triumph of light over darkness, knowledge over ignorance, and good over evil."
+                         data-long="Diwali is one of the most cherished festivals in Hinduism, celebrated by millions across the world. Lasting five vibrant days, it marks Lord Rama's return to Ayodhya after defeating Ravana. Families illuminate their homes with diyas (oil lamps), light fireworks, exchange sweets, and perform Lakshmi Puja to invite prosperity. Beyond its mythology, Diwali is a deeply spiritual reminder that no matter how dark the night, light always returns.">
+                        <div class="h-64 overflow-hidden">
+                            <img src="https://images.pexels.com/photos/8887374/pexels-photo-8887374.jpeg" alt="Diwali" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-secondary text-sm font-semibold uppercase tracking-wider">Hinduism</span>
+                            <h3 class="text-xl font-bold mt-2 mb-3">Diwali - Festival of Lights</h3>
+                            <p class="text-gray-600 text-sm mb-4">The triumph of light over darkness, knowledge over ignorance, and good over evil.</p>
+                            <span class="text-primary font-bold inline-flex items-center gap-2 group-hover:gap-4 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></span>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="festival-card group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white"
+                         data-religion="Islam"
+                         data-religion-link="religion.html?rel=Islam"
+                         data-title="Eid al-Fitr"
+                         data-image="https://images.pexels.com/photos/16132688/pexels-photo-16132688.jpeg"
+                         data-short="The festival of breaking the fast, marking the end of the holy month of Ramadan."
+                         data-long="Eid al-Fitr is one of the most joyful occasions in the Islamic calendar, celebrated worldwide after the spiritual journey of Ramadan. Muslims gather in mosques for special Eid prayers, dress in their finest clothes, share meals with loved ones, and give Zakat al-Fitr — a charitable offering to support those in need. It is a day of gratitude, forgiveness, and renewed devotion that brings communities together in love and unity.">
+                        <div class="h-64 overflow-hidden">
+                            <img src="https://images.pexels.com/photos/16132688/pexels-photo-16132688.jpeg" alt="Eid al-Fitr" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-secondary text-sm font-semibold uppercase tracking-wider">Islam</span>
+                            <h3 class="text-xl font-bold mt-2 mb-3">Eid al-Fitr</h3>
+                            <p class="text-gray-600 text-sm mb-4">The festival of breaking the fast, marking the end of the holy month of Ramadan.</p>
+                            <span class="text-primary font-bold inline-flex items-center gap-2 group-hover:gap-4 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></span>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="festival-card group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white"
+                         data-religion="Christianity"
+                         data-religion-link="religion.html?rel=Christianity"
+                         data-title="Christmas"
+                         data-image="https://images.pexels.com/photos/35385293/pexels-photo-35385293.jpeg"
+                         data-short="Annual commemoration of the birth of Jesus Christ, observed as a religious and cultural celebration."
+                         data-long="Christmas is the spiritual heart of the Christian calendar, celebrating the birth of Jesus Christ in Bethlehem. Observed on December 25th, it is a season filled with carols, candlelit church services, family gatherings, and acts of generosity. Homes are decorated with trees, lights, and nativity scenes, while children await gifts said to be brought by Saint Nicholas. Beyond its festive joy, Christmas carries the timeless message of peace on Earth and goodwill to all.">
+                        <div class="h-64 overflow-hidden">
+                            <img src="https://images.pexels.com/photos/35385293/pexels-photo-35385293.jpeg" alt="Christmas" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-secondary text-sm font-semibold uppercase tracking-wider">Christianity</span>
+                            <h3 class="text-xl font-bold mt-2 mb-3">Christmas</h3>
+                            <p class="text-gray-600 text-sm mb-4">Annual commemoration of the birth of Jesus Christ, observed as a religious and cultural celebration.</p>
+                            <span class="text-primary font-bold inline-flex items-center gap-2 group-hover:gap-4 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></span>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="festival-card group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white"
+                         data-religion="Buddhism"
+                         data-religion-link="religion.html?rel=Buddhism"
+                         data-title="Vesak - Buddha Day"
+                         data-image="https://images.pexels.com/photos/37371120/pexels-photo-37371120.jpeg"
+                         data-short="Commemorating the birth, enlightenment, and passing of Gautama Buddha with light and devotion."
+                         data-long="Vesak, also known as Buddha Day, is the most sacred day in Buddhism, marking three pivotal events in the life of Gautama Buddha — his birth, enlightenment, and parinirvana. Devotees gather at temples to meditate, offer flowers, light lanterns, and engage in acts of kindness and charity. Streets are adorned with colorful decorations, and the day becomes a quiet celebration of compassion, mindfulness, and the path to liberation taught by the Buddha.">
+                        <div class="h-64 overflow-hidden">
+                            <img src="https://images.pexels.com/photos/37371120/pexels-photo-37371120.jpeg" alt="Vesak" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-secondary text-sm font-semibold uppercase tracking-wider">Buddhism</span>
+                            <h3 class="text-xl font-bold mt-2 mb-3">Vesak - Buddha Day</h3>
+                            <p class="text-gray-600 text-sm mb-4">Commemorating the birth, enlightenment, and passing of Gautama Buddha with light and devotion.</p>
+                            <span class="text-primary font-bold inline-flex items-center gap-2 group-hover:gap-4 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></span>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+<div class="festival-card group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white"
+                          data-religion="Sikhism"
+                          data-religion-link="religion.html?rel=Sikhism"
+                          data-title="Vaisakhi"
+                          data-image="https://images.pexels.com/photos/23224411/pexels-photo-23224411.png"
+                          data-short="Celebrating the founding of Sikhism and the harvest season with joyous processions and prayers."
+                          data-long="Vaisakhi is one of the most significant festivals in Sikhism, celebrated on April 13th or 14th each year. It marks the founding of the Khalsa by Guru Gobind Singh in 1699 and coincides with the Punjabi New Year and harvest festival. Sikhs gather at Gurdwaras for special prayers, community service, and processions called Nagar Kirtan. The day is filled with devotional singing, sharing of langar (community meal), and celebrations of Sikh identity and heritage.">
+                         <div class="h-64 overflow-hidden">
+                             <img src="https://images.pexels.com/photos/23224411/pexels-photo-23224411.png" alt="Vaisakhi" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                         </div>
+                        <div class="p-6">
+                            <span class="text-secondary text-sm font-semibold uppercase tracking-wider">Sikhism</span>
+                            <h3 class="text-xl font-bold mt-2 mb-3">Vaisakhi</h3>
+                            <p class="text-gray-600 text-sm mb-4">Celebrating the founding of Sikhism and the harvest season with joyous processions and prayers.</p>
+                            <span class="text-primary font-bold inline-flex items-center gap-2 group-hover:gap-4 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></span>
+                        </div>
+                    </div>
+                    <!-- Card 6 -->
+<div class="festival-card group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white"
+                          data-religion="Judaism"
+                          data-religion-link="religion.html?rel=Judaism"
+                          data-title="Hanukkah"
+                          data-image="https://images.pexels.com/photos/6115936/pexels-photo-6115936.jpeg"
+                          data-short="The Festival of Lights celebrating the rededication of the Second Temple in Jerusalem."
+                          data-long="Hanukkah, also known as the Festival of Lights, is an eight-day Jewish celebration commemorating the rededication of the Second Temple in Jerusalem during the Maccabean Revolt against the Seleucid Empire. Each night, families light the menorah, blessings are recited, and traditional foods like latkes and sufganiyot are enjoyed. Children play with dreidels and receive gifts, while the glow of the menorah serves as a reminder of the miracle of the oil that lasted eight days in the Temple.">
+                         <div class="h-64 overflow-hidden">
+                             <img src="https://images.pexels.com/photos/6115936/pexels-photo-6115936.jpeg" alt="Hanukkah" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                         </div>
+                        <div class="p-6">
+                            <span class="text-secondary text-sm font-semibold uppercase tracking-wider">Judaism</span>
+                            <h3 class="text-xl font-bold mt-2 mb-3">Hanukkah</h3>
+                            <p class="text-gray-600 text-sm mb-4">The Festival of Lights celebrating the rededication of the Second Temple in Jerusalem.</p>
+                            <span class="text-primary font-bold inline-flex items-center gap-2 group-hover:gap-4 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Festival Detail Modal -->
+            <div id="festival-detail-modal" class="fixed inset-0 bg-black/70 z-[3000] hidden items-center justify-center p-4">
+                <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
+                    <button id="close-detail-modal" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-gray-100 flex items-center justify-center transition shadow-md">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <!-- Left: Image -->
+                    <div class="md:w-1/2 h-64 md:h-auto bg-gray-100">
+                        <img id="detail-image" src="" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Right: Content + CTA -->
+<div class="md:w-1/2 p-8 md:p-10 flex flex-col justify-center overflow-y-auto">
+                         <span id="detail-religion" class="text-secondary text-sm font-bold uppercase tracking-widest mb-3"></span>
+                         <h3 id="detail-title" class="text-3xl font-bold playfair mb-4 leading-tight"></h3>
+                         <p id="detail-description" class="text-gray-600 leading-relaxed mb-8"></p>
+                         <div class="flex gap-4">
+                             <a id="detail-cta" href="#" class="btn-gradient inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full font-bold shadow-lg">
+                                 Read More <i class="fas fa-arrow-right text-sm"></i>
+                             </a>
+                             <button id="download-pdf-btn" onclick="downloadFestivalPDF()" class="border-2 border-gray-300 inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full font-bold hover:bg-gray-50 transition transform hover:scale-105 duration-300">
+                                 Download <i class="fas fa-download text-sm animate-bounce"></i>
+                             </button>
+</div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+     <script>
+         let currentFestivalData = {};
+
+         $(document).ready(function() {
+             const $modal = $('#festival-detail-modal');
+
+             $(document).on('click', '.festival-card', function() {
+                 const $c = $(this);
+                 currentFestivalData = {
+                     title: $c.data('title'),
+                     religion: $c.data('religion'),
+                     image: $c.data('image'),
+                     short: $c.data('short'),
+                     long: $c.data('long')
+                 };
+                 $('#detail-image').attr('src', $c.data('image')).attr('alt', $c.data('title'));
+                 $('#detail-religion').text($c.data('religion'));
+                 $('#detail-title').text($c.data('title'));
+                 $('#detail-description').text($c.data('long'));
+                 $('#detail-cta').attr('href', $c.data('religion-link'));
+
+                 $modal.css('display', 'flex').hide().fadeIn(300);
+             });
+
+             $('#close-detail-modal').on('click', () => $modal.fadeOut(200));
+             $modal.on('click', function(e) {
+                 if (e.target === this) $modal.fadeOut(200);
+             });
+         });
+
+         function downloadFestivalPDF() {
+             const { jsPDF } = window.jspdf;
+             const doc = new jsPDF();
+             
+             doc.setFontSize(22);
+             doc.setFont('helvetica', 'bold');
+             doc.text(currentFestivalData.title, 20, 30);
+             
+             doc.setFontSize(12);
+             doc.setFont('helvetica', 'normal');
+             doc.text('Religion: ' + currentFestivalData.religion, 20, 45);
+             
+             doc.setFontSize(14);
+             doc.setFont('helvetica', 'bold');
+             doc.text('About this Festival', 20, 60);
+             
+             doc.setFontSize(11);
+             doc.setFont('helvetica', 'normal');
+             const splitText = doc.splitTextToSize(currentFestivalData.long, 170);
+             doc.text(splitText, 20, 70);
+             
+             doc.save(currentFestivalData.title.replace(/\s+/g, '_') + '_History.pdf');
+         }
+     </script>
+
+            <!-- Religion Grid Section -->
+            <section class="py-20 px-6 md:px-12 bg-gray-50">
+                 <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold playfair mb-4">Explore Religions</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto">Dive deep into the core beliefs and practices of world's major spiritual paths.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <a href="religion.html?rel=Islam" class="bg-dark/80 p-8 text-center text-white rounded-2xl hover:bg-secondary transition cursor-pointer border border-white/10">
+                        <i class="fas fa-moon text-4xl mb-4"></i>
+                        <h4 class="text-lg font-bold">Islam</h4>
+                    </a>
+                    <a href="religion.html?rel=Christianity" class="bg-dark/80 p-8 text-center text-white rounded-2xl hover:bg-secondary transition cursor-pointer border border-white/10">
+                        <i class="fas fa-cross text-4xl mb-4"></i>
+                        <h4 class="text-lg font-bold">Christianity</h4>
+                    </a>
+                    <a href="religion.html?rel=Hinduism" class="bg-dark/80 p-8 text-center text-white rounded-2xl hover:bg-secondary transition cursor-pointer border border-white/10">
+                        <i class="fas fa-om text-4xl mb-4"></i>
+                        <h4 class="text-lg font-bold">Hinduism</h4>
+                    </a>
+                    <a href="religion.html?rel=Buddhism" class="bg-dark/80 p-8 text-center text-white rounded-2xl hover:bg-secondary transition cursor-pointer border border-white/10">
+                        <i class="fas fa-dharmachakra text-4xl mb-4"></i>
+                        <h4 class="text-lg font-bold">Buddhism</h4>
+                    </a>
+                    <a href="religion.html?rel=Judaism" class="bg-dark/80 p-8 text-center text-white rounded-2xl hover:bg-secondary transition cursor-pointer border border-white/10">
+                        <i class="fas fa-star-of-david text-4xl mb-4"></i>
+                        <h4 class="text-lg font-bold">Judaism</h4>
+                    </a>
+                    <a href="religion.html?rel=Sikhism" class="bg-dark/80 p-8 text-center text-white rounded-2xl hover:bg-secondary transition cursor-pointer border border-white/10">
+                        <i class="fas fa-khanda text-4xl mb-4"></i>
+                        <h4 class="text-lg font-bold">Sikhism</h4>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Add Your Festival -->
+            <section class="py-20 px-6 md:px-12 bg-white">
+                <div class="max-w-6xl mx-auto bg-gradient-to-br from-primary/10 via-white to-secondary/10 rounded-3xl p-10 md:p-16 border border-gray-100 shadow-sm">
+                    <div class="flex flex-col md:flex-row gap-12 items-center">
+                        <div class="flex-1 text-center md:text-left">
+                            <span class="text-secondary font-semibold uppercase tracking-widest text-sm mb-3 block">Community Contribution</span>
+                            <h2 class="text-4xl md:text-5xl font-bold playfair mb-4">Share a Festival We Missed</h2>
+                            <p class="text-gray-600 mb-8 max-w-xl">Every culture holds sacred celebrations worth honoring. If a festival you love isn't here, share it with our community and help us grow this peaceful encyclopedia of devotion.</p>
+                            <button id="open-festival-form" class="btn-gradient px-10 py-4 rounded-full font-bold inline-flex items-center gap-3">
+                                <i class="fas fa-plus"></i> Add a Festival
+                            </button>
+                        </div>
+                        <div class="flex-1 flex justify-center">
+                            <div class="w-64 h-64 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                                <img src="https://images.pexels.com/photos/9491008/pexels-photo-9491008.jpeg" alt="Share a Festival" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User-Added Festivals Display -->
+                <div class="max-w-7xl mx-auto mt-12">
+                    <h3 id="user-festivals-title" class="hidden text-2xl font-bold playfair mb-6 text-center">Festivals from our Community</h3>
+                    <div id="user-festivals-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Add Festival Modal -->
+    <div id="festival-modal" class="fixed inset-0 bg-black/70 z-[3000] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100">
+                <h3 class="text-2xl font-bold playfair">Add a New Festival</h3>
+                <button id="close-festival-form" class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="festival-form" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-700">Festival Name <span class="text-accent">*</span></label>
+                    <input type="text" name="name" required placeholder="e.g. Lohri" class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-secondary transition">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-700">Religion <span class="text-accent">*</span></label>
+                        <select name="religion" required class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-secondary transition">
+                            <option value="">Select</option>
+                            <option>Hinduism</option>
+                            <option>Christianity</option>
+                            <option>Islam</option>
+                            <option>Buddhism</option>
+                            <option>Sikhism</option>
+                            <option>Judaism</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-700">Time of Year <span class="text-accent">*</span></label>
+                        <input type="text" name="time" required placeholder="e.g. January 13" class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-secondary transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-700">Location / Country <span class="text-accent">*</span></label>
+                    <input type="text" name="location" required placeholder="e.g. Punjab, India" class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-secondary transition">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-700">Short Description <span class="text-accent">*</span></label>
+                    <textarea name="description" required rows="3" placeholder="A few words about this festival..." class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-secondary transition resize-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-700">Featured Image URL <span class="text-accent">*</span></label>
+                    <input type="url" name="image" required placeholder="https://..." class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-secondary transition">
+                    <p class="text-xs text-gray-500 mt-1">Paste a direct link to a festival image (jpg/png/webp).</p>
+                </div>
+
+                <button type="submit" class="w-full btn-gradient py-4 rounded-xl font-bold mt-2">
+                    <i class="fas fa-paper-plane mr-2"></i> Submit Festival
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Festival Logic -->
+    <script>
+        $(document).ready(function() {
+            const $modal = $('#festival-modal');
+            const $form = $('#festival-form');
+            const $grid = $('#user-festivals-grid');
+            const $title = $('#user-festivals-title');
+
+            $('#open-festival-form').on('click', function() {
+                $modal.css('display', 'flex').hide().fadeIn(300);
+            });
+            $('#close-festival-form').on('click', function() {
+                $modal.fadeOut(200);
+            });
+            $modal.on('click', function(e) {
+                if (e.target === this) $modal.fadeOut(200);
+            });
+
+            function loadFestivals() {
+                const list = JSON.parse(localStorage.getItem('spirita-festivals') || '[]');
+                $grid.empty();
+                if (list.length === 0) { $title.addClass('hidden'); return; }
+                $title.removeClass('hidden');
+
+                list.forEach(function(f, i) {
+                    const card = `
+                        <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden group border border-gray-100">
+                            <div class="h-56 overflow-hidden relative">
+                                <img src="${f.image}" alt="${f.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&q=80&w=600';">
+                                <button class="delete-festival absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 hover:bg-accent hover:text-white text-gray-600 flex items-center justify-center transition" data-index="${i}" title="Remove">
+                                    <i class="fas fa-times text-xs"></i>
+                                </button>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-secondary text-xs font-bold uppercase tracking-wider">${f.religion}</span>
+                                    <span class="text-gray-300">•</span>
+                                    <span class="text-gray-500 text-xs">${f.time}</span>
+                                </div>
+                                <h3 class="text-xl font-bold playfair mb-2">${f.name}</h3>
+                                <p class="text-gray-500 text-sm mb-3 flex items-center gap-2"><i class="fas fa-map-marker-alt text-primary text-xs"></i> ${f.location}</p>
+                                <p class="text-gray-600 text-sm leading-relaxed">${f.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    $grid.append(card);
+                });
+            }
+
+            $form.on('submit', function(e) {
+                e.preventDefault();
+                const data = {};
+                $(this).serializeArray().forEach(p => data[p.name] = p.value.trim());
+
+                const list = JSON.parse(localStorage.getItem('spirita-festivals') || '[]');
+                list.unshift(data);
+                localStorage.setItem('spirita-festivals', JSON.stringify(list));
+
+                $form[0].reset();
+                $modal.fadeOut(200);
+                loadFestivals();
+
+                // Scroll to grid
+                setTimeout(() => {
+                    $('html, body').animate({ scrollTop: $('#user-festivals-grid').offset().top - 100 }, 600);
+                }, 300);
+            });
+
+            $(document).on('click', '.delete-festival', function() {
+                const i = $(this).data('index');
+                const list = JSON.parse(localStorage.getItem('spirita-festivals') || '[]');
+                list.splice(i, 1);
+                localStorage.setItem('spirita-festivals', JSON.stringify(list));
+                loadFestivals();
+            });
+
+            loadFestivals();
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

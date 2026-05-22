@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | Spirita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .team-hero {
+            width: 100%;
+            height: 100vh;
+            background: url('./Assets/team.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+        }
+        .team-hero h1, .team-hero p, .team-hero span {
+            color: white !important;
+        }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.show { opacity: 1; transform: translateY(0); }
+
+        .team-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .team-row.reverse .team-image-wrap { order: 2; }
+        .team-row.reverse .team-content { order: 1; }
+
+        .team-image-wrap {
+            width: 100%;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+            background: #f3f4f6;
+        }
+        .team-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .team-image-wrap:hover img { transform: scale(1.04); }
+
+        @media (max-width: 768px) {
+            .team-hero { margin-top: 56px; height: 100vh; padding-top: 120px; }
+            .team-row {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .team-row.reverse .team-image-wrap { order: 1; }
+            .team-row.reverse .team-content { order: 2; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+
+        <!-- Hero -->
+        <section class="team-hero">
+            <div class="max-w-3xl mx-auto">
+                <span class="inline-block bg-white/20 backdrop-blur px-5 py-2 rounded-full text-sm font-semibold tracking-widest uppercase mb-6">Our Team</span>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 leading-tight">Meet the Souls Behind Spirita</h1>
+                <p class="text-base md:text-lg max-w-2xl mx-auto leading-relaxed">A passionate team of leaders, researchers, and cultural advocates dedicated to bringing sacred wisdom to the world.</p>
+            </div>
+        </section>
+
+        <!-- Intro -->
+        <section class="py-16 px-6 md:px-12 bg-white">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <span class="text-secondary font-semibold uppercase tracking-widest text-sm mb-3 block">Leadership</span>
+                <h2 class="text-4xl md:text-5xl font-bold playfair mb-4">Meet Our Spiritual Guides</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">The dedicated minds and hearts behind Spirita's mission of cultural harmony and interfaith understanding.</p>
+            </div>
+        </section>
+
+        <!-- Team Rows -->
+        <section class="px-6 md:px-12 pb-24 bg-white">
+            <div class="max-w-6xl mx-auto space-y-24">
+
+                <!-- 1: Fawad Khan - Image LEFT, Content RIGHT -->
+                <div class="team-row reveal">
+                    <div class="team-image-wrap">
+                        <img src="Assets/People/fawadowner.webp" alt="Fawad Khan">
+                    </div>
+                    <div class="team-content">
+                        <span class="text-secondary text-sm font-bold uppercase tracking-widest mb-3 block">CEO / Founder</span>
+                        <h3 class="text-4xl font-bold playfair mb-4">Fawad Khan</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">The visionary behind Spirita, Fawad founded the platform with a single mission — to build a peaceful digital sanctuary where every religion is celebrated, honored, and understood. His leadership blends entrepreneurial spirit with deep respect for the world's spiritual traditions, shaping Spirita into a global voice for cultural harmony.</p>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2: Aneeda Jee - Image RIGHT, Content LEFT -->
+                <div class="team-row reverse reveal">
+                    <div class="team-image-wrap">
+                        <img src="Assets/People/aneedajee.webp" alt="Aneeda Arif">
+                    </div>
+                    <div class="team-content">
+                        <span class="text-secondary text-sm font-bold uppercase tracking-widest mb-3 block">CTO</span>
+                        <h3 class="text-4xl font-bold playfair mb-4">Aneeda Arif</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">As Chief Technology Officer, Aneeda architects the calm, premium experience that defines Spirita. From the elegant interface to the immersive galleries, every animation and pixel reflects her belief that technology should be peaceful, accessible, and respectful of the sacred content it presents.</p>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3: Owais Aziz - Image LEFT, Content RIGHT -->
+                <div class="team-row reveal">
+                    <div class="team-image-wrap">
+                        <img src="Assets/People/owais.webp" alt="Owais Aziz">
+                    </div>
+                    <div class="team-content">
+                        <span class="text-secondary text-sm font-bold uppercase tracking-widest mb-3 block">Head of Research</span>
+                        <h3 class="text-4xl font-bold playfair mb-4">Owais Aziz</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">Owais leads Spirita's research team, ensuring every festival, scripture, and spiritual tradition we present is accurate, authentic, and beautifully detailed. With a deep passion for comparative religion and years of academic study, he safeguards the integrity of every page on the platform.</p>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4: Hamza Riaz - Image RIGHT, Content LEFT -->
+                <div class="team-row reverse reveal">
+                    <div class="team-image-wrap">
+                        <img src="Assets/People/hamzariaz.webp" alt="Hamza Riaz">
+                    </div>
+                    <div class="team-content">
+                        <span class="text-secondary text-sm font-bold uppercase tracking-widest mb-3 block">Head of Cultural Department</span>
+                        <h3 class="text-4xl font-bold playfair mb-4">Hamza Riaz</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">Hamza leads Spirita's Cultural Department, curating the festivals, traditions, and rich heritage that fill our galleries and pages. His travels across continents and conversations with spiritual communities bring a deeply human, lived experience to every cultural story we share.</p>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-secondary hover:text-white text-gray-600 flex items-center justify-center transition"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Join Us CTA -->
+        <section class="py-20 px-6 md:px-12 bg-gray-50">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <h2 class="text-4xl md:text-5xl font-bold playfair mb-6">Want to Join Our Mission?</h2>
+                <p class="text-gray-600 mb-8 max-w-xl mx-auto">We are always looking for passionate writers, scholars, and spiritual seekers to join the Spirita family.</p>
+                <a href="contact.html" class="btn-gradient inline-block px-10 py-4 rounded-full font-bold">Get in Touch</a>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function() {
+            function checkReveal() {
+                $('.reveal').each(function() {
+                    const top = $(this).offset().top;
+                    const bottom = $(window).scrollTop() + $(window).height();
+                    if (bottom > top + 60) $(this).addClass('show');
+                });
+            }
+            checkReveal();
+            $(window).on('scroll', checkReveal);
+        });
+    </script>
+</body>
+</html>

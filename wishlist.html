@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist | Spirita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .wishlist-card { animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Shop buttons keep white text */
+        .shop-btn { color: white !important; }
+        .shop-btn:hover { color: white !important; }
+        .wishlist-action-btn { color: #1a1a1a !important; }
+        .wishlist-action-btn:hover { color: white !important; }
+    </style>
+</head>
+<body>
+    <main class="pt-24 min-h-screen">
+        <section class="py-16 px-6 md:px-12">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="text-secondary font-semibold uppercase tracking-widest text-sm mb-3 block">Collection</span>
+                    <h1 class="text-4xl md:text-5xl font-bold playfair mb-4">My Wishlist</h1>
+                    <p class="text-gray-500 max-w-md mx-auto">Items you've saved for later. Move them to your cart when you're ready.</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="wishlist-empty" class="hidden text-center py-24">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-heart text-4xl text-gray-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold playfair mb-3">Your wishlist is empty</h3>
+                    <p class="text-gray-500 mb-8">Save items you love so you can come back to them anytime.</p>
+                    <a href="shop.html" class="btn-gradient px-10 py-4 rounded-full font-bold inline-block">Browse the Shop</a>
+                </div>
+
+                <!-- Wishlist Grid -->
+                <div id="wishlist-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+                <!-- CTA when wishlist has items -->
+                <div id="wishlist-cta" class="hidden text-center mt-12">
+                    <a href="shop.html" class="btn-gradient px-10 py-4 rounded-full font-bold inline-block mr-3">Continue Shopping</a>
+                    <a href="cart.html" class="border-2 border-gray-300 px-10 py-4 rounded-full font-bold hover:bg-gray-50 transition inline-block">View Cart</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        const ALL_WISHLIST_ITEMS = [
+            { id: 1, title: 'Hindu Festivals and Traditions', religion: 'Hinduism', price: 14.99, img: 'https://toppsta.com/images/covers/0/5/6/6/9781398260566-sm.webp?t=1745555705' },
+            { id: 2, title: 'Christian Festivals and Traditions', religion: 'Christianity', price: 14.99, img: 'https://toppsta.com/images/covers/0/5/4/2/9781398260542-sm.webp?t=1745555705' },
+            { id: 3, title: 'Islamic Festivals and Traditions', religion: 'Islam', price: 14.99, img: 'https://toppsta.com/images/covers/0/5/9/7/9781398260597-sm.webp?t=1745555706' },
+            { id: 4, title: 'Buddhist Festivals and Traditions', religion: 'Buddhism', price: 14.99, img: 'https://toppsta.com/images/covers/0/5/8/0/9781398260580-sm.webp?t=1745555706' },
+            { id: 9, title: 'Jewish Festivals and Traditions', religion: 'Judaism', price: 14.99, img: 'https://toppsta.com/images/covers/0/5/7/3/9781398260573-sm.webp?t=1745555705' },
+            { id: 10, title: 'Sikh Festivals and Traditions', religion: 'Sikhism', price: 14.99, img: 'https://toppsta.com/images/covers/0/5/5/9/9781398260559.webp?t=1745555705' },
+            { id: 11, title: 'Festival of Colors', religion: 'Hinduism', price: 12.99, img: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1497086570l/35297602._SX50_.jpg' },
+            { id: 12, title: 'The Festival of Lights: A Lift-the-Flap Diwali Celebration', religion: 'Hinduism', price: 16.99, img: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1736136224i/223295869._SX50_.jpg' },
+            { id: 13, title: 'Besakhiyon Ke Sahare', religion: 'Hinduism', price: 11.50, img: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1696955387i/84345791._SY75_.jpg' },
+            { id: 14, title: 'Hamza Learns About Eid-ul-Adha', religion: 'Islam', price: 10.99, img: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1387753388i/19922206._SX50_.jpg' },
+            { id: 15, title: 'Eid Empanadas: A Latino Ramadan and Eid-ul-Fitr', religion: 'Islam', price: 13.99, img: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1620791835i/58020514._SY75_.jpg' },
+            { id: 16, title: 'Bazar Mein Ramdhan', religion: 'Islam', price: 11.99, img: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1758104923i/241728670._SY75_.jpg' },
+            { id: 17, title: 'The Jewish Festivals: A Guide to Their History and Observance', religion: 'Judaism', price: 18.99, img: 'https://m.media-amazon.com/images/I/91NSLDmTTLL._SY522_.jpg' },
+            { id: 18, title: 'Sikh Festivals & Celebrations: The Ultimate Children\'s Guide to Sikh History', religion: 'Sikhism', price: 15.99, img: 'https://m.media-amazon.com/images/I/71dfB7fvcLL._SY385_.jpg' },
+            { id: 101, title: 'Sandalwood Mala', religion: 'Hinduism', price: 14.99, img: 'https://images.pexels.com/photos/2297252/pexels-photo-2297252.jpeg' },
+            { id: 102, title: 'Lotus Incense Burner', religion: 'Buddhism', price: 24.50, img: 'https://images.pexels.com/photos/10733080/pexels-photo-10733080.jpeg' },
+            { id: 103, title: 'Tibetan Singing Bowl', religion: 'Buddhism', price: 55.00, img: 'https://images.pexels.com/photos/3544322/pexels-photo-3544322.jpeg' },
+            { id: 104, title: 'Crystal Prayer Beads', religion: 'Christianity', price: 29.99, img: 'https://images.pexels.com/photos/11006282/pexels-photo-11006282.jpeg' },
+            { id: 105, title: 'Hand-carved Deity Statue', religion: 'Hinduism', price: 89.00, img: 'https://images.pexels.com/photos/19867234/pexels-photo-19867234.jpeg' },
+            { id: 106, title: 'Aromatherapy Diffuser', religion: 'Buddhism', price: 42.00, img: 'https://images.pexels.com/photos/6915313/pexels-photo-6915313.jpeg' },
+            { id: 107, title: 'Silk Prayer Mat', religion: 'Islam', price: 65.00, img: 'https://images.pexels.com/photos/5580148/pexels-photo-5580148.jpeg' },
+            { id: 108, title: 'Zen Garden Kit', religion: 'Buddhism', price: 34.99, img: 'https://images.pexels.com/photos/8180654/pexels-photo-8180654.jpeg' },
+            { id: 109, title: 'Brass Oil Lamp', religion: 'Hinduism', price: 22.50, img: 'https://images.pexels.com/photos/34705732/pexels-photo-34705732.jpeg' },
+            { id: 110, title: 'Tasbih Prayer Beads', religion: 'Islam', price: 18.99, img: 'https://images.pexels.com/photos/16197226/pexels-photo-16197226.jpeg' },
+            { id: 111, title: 'Wooden Cross Pendant', religion: 'Christianity', price: 19.99, img: 'https://images.pexels.com/photos/792953/pexels-photo-792953.jpeg' },
+            { id: 112, title: 'Menorah Candle Holder', religion: 'Judaism', price: 75.00, img: 'https://images.pexels.com/photos/6114553/pexels-photo-6114553.jpeg' },
+            { id: 113, title: 'Shofar Horn', religion: 'Judaism', price: 65.00, img: 'https://images.pexels.com/photos/15662091/pexels-photo-15662091.png' },
+            { id: 114, title: 'Kara Steel Bracelet', religion: 'Sikhism', price: 24.99, img: 'https://images.pexels.com/photos/6277361/pexels-photo-6277361.jpeg' },
+            { id: 115, title: 'Sikh Khanda Pendant', religion: 'Sikhism', price: 32.50, img: 'https://images.pexels.com/photos/37313789/pexels-photo-37313789.jpeg' },
+            { id: 116, title: 'Rosary Beads', religion: 'Christianity', price: 22.99, img: 'https://images.pexels.com/photos/31678923/pexels-photo-31678923.jpeg' },
+            { id: 117, title: 'Quran Stand', religion: 'Islam', price: 45.00, img: 'https://images.pexels.com/photos/16150241/pexels-photo-16150241.jpeg' },
+            { id: 118, title: 'Buddha Statue', religion: 'Buddhism', price: 95.00, img: 'https://images.pexels.com/photos/37027741/pexels-photo-37027741.jpeg' },
+            { id: 119, title: 'Bhagavad Gita (Hardcover)', religion: 'Hinduism', price: 35.00, img: 'https://images.pexels.com/photos/8033843/pexels-photo-8033843.jpeg' },
+            { id: 120, title: 'Holy Bible (Leather)', religion: 'Christianity', price: 40.00, img: 'https://images.pexels.com/photos/3932312/pexels-photo-3932312.jpeg' },
+            { id: 121, title: 'Holy Quran (Deluxe)', religion: 'Islam', price: 38.00, img: 'https://images.pexels.com/photos/461460/pexels-photo-461460.jpeg' },
+            { id: 122, title: 'Meditation Mat', religion: 'Buddhism', price: 49.99, img: 'https://images.pexels.com/photos/3824739/pexels-photo-3824739.jpeg' }
+        ];
+
+        function renderWishlist() {
+            const wlIds = getWishlist();
+            const $container = $('#wishlist-container');
+            const $empty = $('#wishlist-empty');
+            const $cta = $('#wishlist-cta');
+
+            if (wlIds.length === 0) {
+                $container.empty();
+                $empty.removeClass('hidden');
+                $cta.addClass('hidden');
+                return;
+            }
+
+            $empty.addClass('hidden');
+            $cta.removeClass('hidden');
+
+            const items = ALL_WISHLIST_ITEMS.filter(i => wlIds.includes(i.id));
+            let html = '';
+
+            items.forEach(item => {
+                html += `
+                    <div class="wishlist-card bg-white p-6 rounded-3xl shadow-lg border border-gray-50 text-left flex flex-col group hover:shadow-2xl transition-all" data-id="${item.id}">
+                        <div class="h-56 overflow-hidden rounded-2xl mb-5 relative">
+                            <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&q=80&w=600';">
+                            <span class="absolute top-3 left-3 text-xs font-bold uppercase tracking-wider bg-white/90 backdrop-blur px-3 py-1 rounded-full text-secondary shadow">${item.religion}</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">${item.title}</h4>
+                        <span class="text-2xl font-bold text-secondary mb-4">$${item.price.toFixed(2)}</span>
+
+                        <div class="flex gap-3 mt-auto">
+                            <button class="btn-gradient shop-btn flex-1 px-5 py-2.5 rounded-full text-sm font-bold move-to-cart" data-id="${item.id}">
+                                <i class="fas fa-cart-plus mr-1"></i> Add to Cart
+                            </button>
+                            <button class="wishlist-action-btn flex-1 px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 hover:border-accent hover:bg-accent remove-from-wishlist" data-id="${item.id}">
+                                <i class="fas fa-trash mr-1"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            $container.html(html);
+        }
+
+        $(document).ready(function() {
+            renderWishlist();
+            updateWishlistCount();
+
+            // Move item from wishlist → cart
+            $(document).on('click', '.move-to-cart', function() {
+                const id = parseInt($(this).data('id'), 10);
+                const item = ALL_WISHLIST_ITEMS.find(i => i.id === id);
+                if (!item) return;
+
+                let cart = JSON.parse(localStorage.getItem('spirita-cart')) || [];
+                const existing = cart.find(c => c.id === id);
+                if (existing) existing.qty++;
+                else cart.push({ ...item, qty: 1 });
+                localStorage.setItem('spirita-cart', JSON.stringify(cart));
+
+                // Remove from wishlist
+                removeFromWishlist(id);
+
+                // Animate card removal then re-render
+                const $card = $(this).closest('.wishlist-card');
+                $card.fadeOut(300, function() { renderWishlist(); });
+
+                window.updateCartCount && window.updateCartCount();
+            });
+
+            // Remove from wishlist directly
+            $(document).on('click', '.remove-from-wishlist', function() {
+                const id = parseInt($(this).data('id'), 10);
+                removeFromWishlist(id);
+                const $card = $(this).closest('.wishlist-card');
+                $card.fadeOut(300, function() { renderWishlist(); });
+            });
+        });
+    </script>
+</body>
+</html>

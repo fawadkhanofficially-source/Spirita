@@ -1,0 +1,276 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Spirita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .contact-hero {
+            width: 100%;
+            height: 100vh;
+            margin-top: 0;
+            background: url('Assets/contact-page.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+        }
+        .contact-hero h1, .contact-hero p, .contact-hero span {
+            color: white !important;
+        }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.show { opacity: 1; transform: translateY(0); }
+        .feature-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .input-style {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            background: #fafafa;
+        }
+        .input-style:focus {
+            border-color: var(--secondary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(47,160,132,0.1);
+        }
+        @media (max-width: 768px) {
+            .contact-hero { margin-top: 0; height: 100vh; padding-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+
+        <!-- Hero -->
+        <section class="contact-hero">
+            <div class="max-w-3xl mx-auto">
+                <span class="inline-block bg-white/20 backdrop-blur px-5 py-2 rounded-full text-sm font-semibold tracking-widest uppercase mb-6">Get in Touch</span>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 leading-tight">We'd Love to Hear From You</h1>
+                <p class="text-base md:text-lg max-w-2xl mx-auto leading-relaxed">Whether you have a question, a story to share, or simply wish to connect — we're always listening.</p>
+            </div>
+        </section>
+
+        <!-- Contact Info Cards -->
+        <section class="py-20 px-6 md:px-12 bg-white">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <div class="reveal bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:shadow-xl transition text-center">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-5">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold playfair mb-2">Email Us</h3>
+                    <p class="text-gray-500 text-sm mb-3">For general questions and inquiries.</p>
+                    <a href="mailto:hello@spirita.com" class="text-secondary font-semibold hover:underline">hello@spirita.com</a>
+                </div>
+
+                <div class="reveal bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:shadow-xl transition text-center">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-5">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="text-xl font-bold playfair mb-2">Call Us</h3>
+                    <p class="text-gray-500 text-sm mb-3">Mon – Fri, 9 AM to 6 PM.</p>
+                    <a href="tel:+12345678900" class="text-secondary font-semibold hover:underline">+1 (234) 567-8900</a>
+                </div>
+
+                <div class="reveal bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:shadow-xl transition text-center">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-5">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold playfair mb-2">Visit Us</h3>
+                    <p class="text-gray-500 text-sm mb-3">Our peaceful headquarters.</p>
+                    <p class="text-secondary font-semibold">123 Spiritual Way<br>Peace City, 10001</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Form + Map -->
+        <section class="py-20 px-6 md:px-12 bg-gray-50">
+            <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2 reveal">
+
+                <!-- LEFT: Form -->
+                <div class="p-10 md:p-14">
+                    <span class="text-secondary font-semibold uppercase tracking-widest text-sm mb-3 block">Send a Message</span>
+                    <h2 class="text-3xl md:text-4xl font-bold playfair mb-3">Share Your Thoughts</h2>
+                    <p class="text-gray-500 mb-8">Fill out the form and our team will get back to you within 24 hours.</p>
+
+                    <form id="contact-form" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-gray-700">First Name</label>
+                                <input type="text" name="first" required placeholder="John" class="input-style">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-gray-700">Last Name</label>
+                                <input type="text" name="last" required placeholder="Doe" class="input-style">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Email Address</label>
+                            <input type="email" name="email" required placeholder="you@example.com" class="input-style">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Subject</label>
+                            <select name="subject" required class="input-style">
+                                <option value="">Select a topic</option>
+                                <option>General Inquiry</option>
+                                <option>Festival Submission</option>
+                                <option>Partnership / Collaboration</option>
+                                <option>Books & Shop Support</option>
+                                <option>Press / Media</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Your Message</label>
+                            <textarea name="message" required rows="5" placeholder="Tell us what's on your mind..." class="input-style resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-gradient w-full py-4 rounded-full font-bold text-base flex items-center justify-center gap-2">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- RIGHT: Map -->
+                <div class="relative min-h-[400px] md:min-h-full">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.960879716169!2d67.0985749154072!3d24.86140998405998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e8f0b8c6e6b%3A0xe8ed75ca7b2c8f5a!2sNorth%20Nazimabad%2C%20Karachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; min-height: 400px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="absolute inset-0 w-full h-full">
+                    </iframe>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="py-20 px-6 md:px-12 bg-white">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 reveal">
+                    <span class="text-secondary font-semibold uppercase tracking-widest text-sm mb-3 block">FAQ</span>
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-4">Frequently Asked Questions</h2>
+                    <p class="text-gray-500">Quick answers to questions we hear most often.</p>
+                </div>
+
+                <div class="space-y-4" id="faq-list">
+                    <div class="faq-item reveal bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden">
+                        <button class="faq-q w-full p-6 flex justify-between items-center text-left font-bold text-base hover:bg-gray-100 transition">
+                            <span>How can I add a festival to Spirita?</span>
+                            <i class="fas fa-plus text-secondary transition-transform"></i>
+                        </button>
+                        <div class="faq-a hidden p-6 pt-0 text-gray-600 text-sm leading-relaxed">
+                            Visit our home page and look for the "Share a Festival We Missed" section. Click "Add a Festival" to fill out a short form with festival name, religion, date, location, image, and description. Your contribution will appear instantly on the home page.
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden">
+                        <button class="faq-q w-full p-6 flex justify-between items-center text-left font-bold text-base hover:bg-gray-100 transition">
+                            <span>Do you honor every religion equally?</span>
+                            <i class="fas fa-plus text-secondary transition-transform"></i>
+                        </button>
+                        <div class="faq-a hidden p-6 pt-0 text-gray-600 text-sm leading-relaxed">
+                            Absolutely. Spirita is built on the principle of cultural harmony. We present every faith — Hinduism, Christianity, Islam, Buddhism, Judaism, and Sikhism — with equal reverence, accuracy, and respect. We do not rank, compare, or judge any tradition.
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden">
+                        <button class="faq-q w-full p-6 flex justify-between items-center text-left font-bold text-base hover:bg-gray-100 transition">
+                            <span>How are orders processed in the shop?</span>
+                            <i class="fas fa-plus text-secondary transition-transform"></i>
+                        </button>
+                        <div class="faq-a hidden p-6 pt-0 text-gray-600 text-sm leading-relaxed">
+                            Add any sacred items to your cart and complete checkout from the cart page. We accept both card payments and cash on delivery. You'll receive a confirmation message right after placing your order.
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden">
+                        <button class="faq-q w-full p-6 flex justify-between items-center text-left font-bold text-base hover:bg-gray-100 transition">
+                            <span>Can I contribute content as a writer or scholar?</span>
+                            <i class="fas fa-plus text-secondary transition-transform"></i>
+                        </button>
+                        <div class="faq-a hidden p-6 pt-0 text-gray-600 text-sm leading-relaxed">
+                            We always welcome thoughtful contributors. Send us a message above with the subject "Partnership / Collaboration" and a brief introduction. Our editorial team will reach out to discuss how you can help grow our peaceful encyclopedia.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Success Modal -->
+    <div id="contact-success" class="fixed inset-0 bg-black/70 z-[3000] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-md p-10 text-center shadow-2xl">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+                <i class="fas fa-check text-3xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold playfair mb-2">Message Sent!</h3>
+            <p class="text-gray-500 text-sm mb-6">Thank you for reaching out. Our team will respond to you within 24 hours.</p>
+            <button id="close-success" class="btn-gradient w-full py-3 rounded-full font-bold">Done</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Scroll reveal
+            function checkReveal() {
+                $('.reveal').each(function() {
+                    const top = $(this).offset().top;
+                    const bottom = $(window).scrollTop() + $(window).height();
+                    if (bottom > top + 60) $(this).addClass('show');
+                });
+            }
+            checkReveal();
+            $(window).on('scroll', checkReveal);
+
+            // FAQ accordion
+            $(document).on('click', '.faq-q', function() {
+                const $item = $(this).closest('.faq-item');
+                const $answer = $item.find('.faq-a');
+                const $icon = $(this).find('i');
+
+                if ($answer.hasClass('hidden')) {
+                    $answer.removeClass('hidden').hide().slideDown(300);
+                    $icon.removeClass('fa-plus').addClass('fa-minus');
+                } else {
+                    $answer.slideUp(300, function() { $(this).addClass('hidden'); });
+                    $icon.removeClass('fa-minus').addClass('fa-plus');
+                }
+            });
+
+            // Form submission
+            $('#contact-form').on('submit', function(e) {
+                e.preventDefault();
+                this.reset();
+                $('#contact-success').css('display', 'flex').hide().fadeIn(300);
+            });
+
+            $('#close-success').on('click', () => $('#contact-success').fadeOut(200));
+            $('#contact-success').on('click', function(e) {
+                if (e.target === this) $(this).fadeOut(200);
+            });
+        });
+    </script>
+</body>
+</html>
